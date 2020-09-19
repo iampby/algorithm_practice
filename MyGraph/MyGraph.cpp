@@ -2,39 +2,38 @@
 //
 
 #include <iostream>
+#include<memory>
 #include"Graph.h"
 using namespace GH;
 using namespace std;
 int main()
 {
 	Graph<int,int> g;  
-	for (int i = 0; i <10; ++i) {
-		g.insert(i);
-	}
-	g.insert(0,1,1,0);
-	g.insert(0, 1, 1, 2);
-	g.insert(0, 1, 1, 3);
-	g.insert(0, 1, 2, 4);
-	g.insert(0, 1, 3, 4);
-	g.insert(0, 1, 0, 2);
-	g.insert(0, 1, 0,5);
-	g.insert(0, 1, 5, 6);
-	g.insert(0, 1, 5, 7);
-	g.insert(0, 1, 7, 6);
-	g.insert(0, 1, 7, 4);
-	int f= g.findFirstOrigin();
-	std::vector<std::queue<int> >x= g.dfs(f);;
-	for (int i = 0; i < x.size(); ++i) {
-		std::queue<int>&q = x[i];
-		int length = q.size();
-		for (int j = 0; j < length; j++)
-		{
-			cout << q.front();
-			q.pop();
-		}
-		cout << endl;
+	g.insert(0);
+	for (int i =1; i <7; ++i) {
+		g.insert(i,1);
 	}
 
+	g.insert(0,1,0,1);
+	g.insert(0, 1, 0, 2);
+	g.insert(0, 1, 1, 2);
+	g.insert(0, 1, 1, 3);
+	g.insert(0, 1, 1, 4);
+	g.insert(0, 1, 3, 4);
+	g.insert(0, 1, 5,1);
+	for (int i = 0; i < g.V.size(); ++i) {
+		cout << "i=" << i << ",data=" << g.V[i].data <<",inDegree="<< g.V[i].inDegree << ",outDegree="<< g.V[i].outDegree << endl;;
+	}
+	cout << endl;
+	int f= g.findFirstOrigin();
+	std::cout << "f=" << f << endl;
+		shared_ptr<queue<int> >x = g.bfsTopologicalSort(f);
+		std::cout << "s=" <<x->size() << endl;
+		while (!x->empty())
+		{
+			cout <<x->front();
+			x->pop();
+		}
 	
 }                                                                                                        
 

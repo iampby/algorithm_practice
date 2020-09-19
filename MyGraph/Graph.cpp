@@ -2,7 +2,9 @@
 #include<list>
 #include<vector>
 #include<queue>
+#include<stack>
 #include<iostream>
+#include<memory>
 namespace GH {
 #define TLEI typename std::list<Edge<Te>*>::iterator  //邻接链表迭代器声明
 #define TLECI typename std::list<Edge<Te>*>::const_iterator//邻接链表常量迭代器声明
@@ -32,25 +34,32 @@ namespace GH {
 	template<typename Te = int>
 	struct Edge {
 	   Te data; Etype type; int weight;
-	   void*address;//边是出边(u,v)的顶点地址v
+	   int address;//边是出边(u,v)的顶点v在V中的索引
 		Edge(Te const& d, int w) :
-			data(d), weight(w), type(Etype::Undetermine),address(nullptr)
+			data(d), weight(w), type(Etype::Undetermine),address(-1)
+		{}
+		Edge(Te const& d, int& w, Etype&t,int&a ) :
+			data(d), weight(w), type(t), address(a)
 		{}
 	};
 	template<typename Tv=int,typename Te=int>
 	class Graph
 	{
-		void reset();
-		void BFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
-		void DFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
-	public:
+		virtual void reset();
+		virtual void BFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
+		virtual void DFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
+		virtual bool DFSTSort(int v,  std::stack<Tv>*);//连通域，dfs拓补排序
+		public:
 		Graph();
+		explicit Graph(Graph<Tv, Te>  &);
 		~Graph();                   
 	public:
 	
 		//算法
-		std::vector<std::queue<int> > bfs(int);//广度优先搜索算法 参数为起点 返回一个队列列表,图所有的广度搜索结果
-		std::vector<std::queue<int> >dfs(int);//深度优先搜索算法 参数为起点 返回一个队列列表,图所有的深度搜索结果
+		virtual	std::shared_ptr<std::vector<std::queue<int> > > bfs(int);//广度优先搜索算法 参数为起点 返回一个队列列表指针指针,图所有的广度搜索结果
+		virtual	std::shared_ptr<std::vector<std::queue<int> > > dfs(int);//深度优先搜索算法 参数为起点 返回一个队列列表智能指针,图所有的深度搜索结果
+		virtual	std::shared_ptr <std::stack<Tv> >dfsTopologicalSort(int s);//基于dfs的拓补排序算法
+		virtual std::shared_ptr <std::queue<Tv> >bfsTopologicalSort(int s);//基于bfs的拓补排序算法
 		virtual int findFirstOrigin();//找到第一个入度为0，出度不为0的顶点位置
 		virtual int nextOrigin(int i);//找到相对于i的下一个入度为0，出度不为0的顶点位置
 	
@@ -67,7 +76,7 @@ namespace GH {
 		virtual int&dTime(int i);
 		virtual int&fTime(int i);
 		//顶点动态操作
-		virtual int insert(Tv const&vertex,int i=-1);//-1代表插入末尾
+		virtual int insert(Tv const&vertex,int i=-1);//-1代表插入末尾 末尾插入花费O(1)
 		virtual Tv remove(int i);
 	 //边操作
 		
