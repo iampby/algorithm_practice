@@ -253,7 +253,7 @@ while (s != (v = (++v%n)));//遍历全部点
 } else {//有环路
 				 while (!sqtv->empty())
 				 {
-					 sqtv->pop();//
+					 sqtv->pop();
 				 }
 				return sqt;
 			 }
