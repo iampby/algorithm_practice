@@ -36,8 +36,7 @@ namespace GH{
 					  status(u) = VStatus::Discover;//标记为已发现
 					 Q.push(u);
 					 type(v, u) = Etype::Tree; parent(u) = v;//树边；
-					 std::cout << u<< v << std::endl;
-					}else {
+					}else{
 					  type(v, u) = Etype::Cross;//如果已经处理则为跨边
 				  }
 			  }
@@ -47,35 +46,43 @@ namespace GH{
 	  template<typename Tv, typename Te>
 	   void Graph<Tv, Te>::DFS(int v, int &clock, std::queue<int>&qcc)
 	  {
-		   std::stack<int>S;//引入辅助栈
+		std::stack<int>S;//引入辅助栈 记录当前顶点位置
+		int u = -1;//记录顶点的迭代位置
 		 dTime(v) = ++clock;
 		   status(v) = VStatus::Discover;
 		  S.push(v);//初始化起点
 		  qcc.push(v);
 		   while (!S.empty())
 		   {
+			   //加个标签，用来跳出for循环而不适用if..else
+			   label:
 			   int v =S.top();
 			//   m.insert_or_assign(v, v);//记录点
 			  if (status(v) == VStatus::Visited) {
 				  S.pop();//如果已经访问过，删除,执行下一次深度搜索
+				  u = v;//记录迭代位置
 				  continue;
 			  }
-			  int u = -1;
-			for (u = firstNbr(v); -1 < u; u = nextNbr(v, u)) {
-				   if (status(u) == VStatus::Undiscover) {
+			  if(u==-1)u= firstNbr(v);//邻接链表第一次迭代
+			  else u = nextNbr(v, u);//获取顶点下一次迭代位置
+			for (; -1 < u;) {
+				switch ( status(u)) {
+				case VStatus::Undiscover:
 					   status(u) = VStatus::Discover;//标记为已发现
-					   S.push(u);
+					  S.push(u);
 					   qcc.push(u);
 					   type(v, u) = Etype::Tree; parent(u) = v;//树边；
 					   dTime(v) = ++clock;
-					   break;//跳出循环去执行下一次深度搜索
-				   }else if(status(u)==VStatus::Visited){
+					   u = -1;//第一次发现 标记迭代位置为-1
+					  goto label;//跳出循环去执行下一次深度搜索
+				case  VStatus::Visited:
 					   type(v, u) = (dTime(v) < dTime(u)) ? Etype::Forward : Etype::Cross;
-					   continue;//下一个邻居dfs
-				   }else{
+					   break;//下一个邻居dfs
+				case VStatus::Discover:
 					   type(v, u) = Etype::Backward;
-					   continue;//下一个邻居dfs
+					   break;//下一个邻居dfs
 				   }
+				u = nextNbr(v, u);
 			   }
 			if(u==-1)
 			   status(v) = VStatus::Visited;//已访问完毕
@@ -85,29 +92,33 @@ namespace GH{
 	    bool Graph<Tv, Te>::DFSTSort(int v, std::stack<Tv>*S)
 	   {
 			std::stack<int>s;//引入辅助栈，记录迭代位置 栈顶为当前迭代位置
+			int u = -1;//记录顶点的迭代位置
 			s.push(v);
 			status(v) = VStatus::Discover;
 			while (!s.empty())
 			{
+				//加个标签，用来跳出for循环而不适用if..else
+			label:
 				int v = s.top();
 				if (status(v) == VStatus::Visited) {
 					s.pop();
+					u = v;//记录顶点当前迭代位置
 					continue;
 				}
-				int u = -1;
-				for (u = firstNbr(v); -1 < u; u = nextNbr(v, u)) {
-					VStatus& ss = status(u);
-					//std::cout << "u=" << u << "s=" << (int)ss <<"v="<<v<< std::endl;
-					if (ss == VStatus::Undiscover) {
-						parent(u) = v;
-						ss = VStatus::Discover;
-						s.push(u);//当前位置
-						std::cout << "v=" << v << "u=" << u << std::endl;
-						break;
-					}else if (ss == VStatus::Discover) {
-						std::cout << "not directed acicling graph" << std::endl;
+				if(u == -1)u = firstNbr(v);//邻接链表第一次迭代
+				else u = nextNbr(v, u);//获取顶点下一次迭代位置
+				while (-1<u) {
+					switch (status(u)) {
+					case VStatus::Undiscover:
+					parent(u) = v;
+						status(u) = VStatus::Discover;
+						s.push(u);//插入当前位置
+						u = -1;//第一次发现 标记迭代位置为-1
+						goto label;
+					case VStatus::Discover:
 						return false;
 					}
+					u = nextNbr(v, u);
 				}
 				if (u == -1) {
 					status(v) = VStatus::Visited;
@@ -116,6 +127,227 @@ namespace GH{
 			}
 	   }
 
+		template<typename Tv, typename Te>
+		void Graph<Tv, Te>::BCC(int v, int & clock, std::stack<int>& S, std::list<int>& apSet)
+		{
+			std::stack<int>s;//引入辅助栈，记录顶点位置 栈顶为当前顶点位置
+			int u=-1;//记录顶点的迭代位置
+			s.push(v);
+			S.push(v);//v被发现入栈
+			fTime(v) = dTime(v) = ++clock;//用fTime代表heighest connected ancestor(hca)
+			status(v) = VStatus::Discover;
+		while (!s.empty())
+			{
+				//加个标签，用来跳出for循环而不适用if..else
+			label:
+				int v = s.top();
+				if (status(v) == VStatus::Visited) {
+					s.pop();
+					u = v;//记录顶点当前迭代位置
+					continue;
+				}
+				if(u == -1)u = firstNbr(v);//邻接链表第一次迭代
+				for (; -1 < u; ) {
+					switch (status(u)) {
+					case VStatus::Undiscover:
+						parent(u)=v;
+						s.push(u);//进行下一次迭代
+						S.push(u);//已访问则入记录栈
+						fTime(u) = dTime(u) = ++clock;//用fTime代表heighest connected ancestor(hca)
+						status(u) = VStatus::Discover;
+u = -1;//第一次发现 标记迭代位置为-1
+						goto label;
+					case VStatus::Discover:
+						if (u != parent(v)) {
+							fTime(v) = std::min(fTime(v), dTime(u));//首先排除无向图单边的情况，然后遵循越小越高的原则，最高为树根,对hca进行更新
+						}
+break;
+					case VStatus::Visited:
+						if (parent(u) == v) {//树边
+							if (fTime(u)<dTime(v)) {//如果hca小于v的时间标签 说明是后向边
+								fTime(v) = std::min(fTime(u), fTime(v));//反过来 v也有一个后向边，更新时间标签
+							}else {
+								while (true)
+								{
+									int tv = S.top();
+									if (tv == v) {
+										apSet.push_back(v);//关节点找到
+										break;
+									}
+									S.pop();//删除点以找到关节点
+								}
+							}
+						}else {//非树边
+							type(v, u) = (dTime(v) < dTime(u)) ? Etype::Forward : Etype::Cross;
+						}
+						break;
+					}
+					u = nextNbr(v, u);
+					}
+				if (u == -1) {
+					status(v) = VStatus::Visited;
+				}
+			}
+		}
+		template<typename Tv, typename Te>
+		void Graph<Tv, Te>::BCC(int v, int&clock, std::stack<int>&S, std::list<std::list<Edge<Te> > >&bccSet)
+		{
+			std::stack<int>s;//引入辅助栈，记录顶点位置 栈顶为当前顶点位置
+			int u = -1;//记录顶点的迭代位置
+			bool f = false;//标记 true为找到后向边，即不用新建一个双连通域
+			s.push(v);
+			S.push(v);//v被发现入栈
+			fTime(v) = dTime(v) = ++clock;//用fTime代表heighest connected ancestor(hca)
+			status(v) = VStatus::Discover;
+			while (!s.empty())
+			{
+				//加个标签，用来跳出for循环而不适用if..else
+			label:
+				int v = s.top();
+				if (status(v) == VStatus::Visited) {
+					s.pop();
+					u = v;//记录顶点当前迭代位置
+					continue;
+				}
+				if (u == -1)u = firstNbr(v);//邻接链表第一次迭代
+				for (; -1 < u; ) {
+					switch (status(u)) {
+					case VStatus::Undiscover:
+						parent(u) = v;
+						s.push(u);//进行下一次迭代
+						S.push(u);//已访问则入记录栈
+						fTime(u) = dTime(u) = ++clock;//用fTime代表heighest connected ancestor(hca)
+						status(u) = VStatus::Discover;
+						u = -1;//第一次发现 标记迭代位置为-1
+						goto label;
+					case VStatus::Discover:
+						if (u != parent(v)) {
+							f = true;//找到一个后向边 作为新的双连通域的起点
+							Edge<Te>&et = getEdge(v, u);//获取边
+							std::list<Edge<Te> >let;//新连通域
+							let.push_back(et);//新连通域起点边
+							bccSet.push_back(let);
+							fTime(v) = std::min(fTime(v), dTime(u));//首先排除无向图单边的情况，然后遵循越小越高的原则，最高为树根,对hca进行更新
+						}
+						break;
+					case VStatus::Visited:
+						if (parent(u) == v) {//树边
+							if (fTime(u) < dTime(v)) {//如果hca小于v的时间标签 说明是后向边
+								fTime(v) = std::min(fTime(u), fTime(v));//反过来 v也有一个后向边，更新时间标签
+							}
+							else {
+								if (!f) {
+									std::list<Edge<Te> >let;//新连通域
+									bccSet.push_back(let);
+								}
+								std::list<Edge<Te> >&let = *--(bccSet.end());
+									while (true)
+								{
+									int tv = S.top();
+									if (tv != v) {
+									int& pv = parent(tv);
+									Edge<Te>&et = getEdge(pv, tv);//获取边
+										let.push_back(et);//新连通域起点边
+										S.pop();//删除点以找到边
+									}else break;
+									}
+								f = false;//重置后向边标记
+							}
+						}
+						else {//非树边
+							type(v, u) = (dTime(v) < dTime(u)) ? Etype::Forward : Etype::Cross;
+						}
+						break;
+					}
+					u = nextNbr(v, u);
+				}
+				if (u == -1) {
+					status(v) = VStatus::Visited;
+				}
+			}
+		}
+
+		template<typename Tv, typename Te>
+		 void Graph<Tv, Te>::BCC(int v, int & clock, std::stack<int>& S, std::list<int>&apSet, std::list<std::list<Edge<Te> > >& bccSet)
+		{
+			 std::stack<int>s;//引入辅助栈，记录顶点位置 栈顶为当前顶点位置
+			 int u = -1;//记录顶点的迭代位置
+			 bool f = false;//标记 true为找到后向边，即不用新建一个双连通域
+			 s.push(v);
+			 S.push(v);//v被发现入栈
+			 fTime(v) = dTime(v) = ++clock;//用fTime代表heighest connected ancestor(hca)
+			 status(v) = VStatus::Discover;
+			 while (!s.empty())
+			 {
+				 //加个标签，用来跳出for循环而不适用if..else
+			 label:
+				 int v = s.top();
+				 if (status(v) == VStatus::Visited) {
+					 s.pop();
+					 u = v;//记录顶点当前迭代位置
+					 continue;
+				 }
+				 if (u == -1)u = firstNbr(v);//邻接链表第一次迭代
+				 for (; -1 < u; ) {
+					 switch (status(u)) {
+					 case VStatus::Undiscover:
+						 parent(u) = v;
+						 s.push(u);//进行下一次迭代
+						 S.push(u);//已访问则入记录栈
+						 fTime(u) = dTime(u) = ++clock;//用fTime代表heighest connected ancestor(hca)
+						 status(u) = VStatus::Discover;
+						 u = -1;//第一次发现 标记迭代位置为-1
+						 goto label;
+					 case VStatus::Discover:
+						 if (u != parent(v)) {
+							 f = true;//找到一个后向边 作为新的双连通域的起点
+							 Edge<Te>&et = getEdge(v, u);//获取边
+							 std::list<Edge<Te> >let;//新连通域
+							 let.push_back(et);//新连通域起点边
+							 bccSet.push_back(let);
+							 fTime(v) = std::min(fTime(v), dTime(u));//首先排除无向图单边的情况，然后遵循越小越高的原则，最高为树根,对hca进行更新
+						 }
+						 break;
+					 case VStatus::Visited:
+						 if (parent(u) == v) {//树边
+							 if (fTime(u) < dTime(v)) {//如果hca小于v的时间标签 说明是后向边
+								 fTime(v) = std::min(fTime(u), fTime(v));//反过来 v也有一个后向边，更新时间标签
+							 }
+							 else {
+								 if (!f) {
+									 std::list<Edge<Te> >let;//新连通域
+									 bccSet.push_back(let);
+								 }
+								 std::list<Edge<Te> >&let = *--(bccSet.end());
+								 while (true)
+								 {
+									 int tv = S.top();
+									 if (tv != v) {
+										 int& pv = parent(tv);
+										 Edge<Te>&et = getEdge(pv, tv);//获取边
+										 let.push_back(et);//新连通域起点边
+										 S.pop();//删除点以找到边
+									 }
+									 else {
+										 apSet.push_back(v);//关节点找到
+										 break;
+									 }
+								 }
+								 f = false;//重置后向边标记
+							 }
+						 }
+						 else {//非树边
+							 type(v, u) = (dTime(v) < dTime(u)) ? Etype::Forward : Etype::Cross;
+						 }
+						 break;
+					 }
+					 u = nextNbr(v, u);
+				 }
+				 if (u == -1) {
+					 status(v) = VStatus::Visited;
+				 }
+			 }
+		}
 	
 
 	template<typename Tv, typename Te>
@@ -164,16 +396,15 @@ namespace GH{
 			 }
 			 el.clear();
 		 }
-		 std::cout << "~Graph()"<<std::endl;
-	}
+		}
 
 	 template<typename Tv, typename Te>
-	 std::shared_ptr<std::vector<std::queue<int> > > Graph<Tv, Te>::bfs(int s)
+	 std::shared_ptr<std::list<std::queue<int> > > Graph<Tv, Te>::bfs(int s)
 	 {
 		 reset(); int clock = 0; int v = s;
-		 std::vector<std::queue<int> >*vqccv = new std::vector<std::queue<int> >;
-		 std::shared_ptr<std::vector<std::queue<int> > > vqcc(vqccv);//连通分量点记录队列向量
-		 std::weak_ptr<std::vector<std::queue<int> > > pw(vqcc);//引入weak_ptr打破循环引用
+		 std::list<std::queue<int> >*vqccv = new std::list<std::queue<int> >;
+		 std::shared_ptr<std::list<std::queue<int> > > vqcc(vqccv);//连通分量点记录队列向量
+		 std::weak_ptr<std::list<std::queue<int> > > pw(vqcc);//引入weak_ptr打破循环引用
 		 do
 			 if (VStatus::Undiscover == status(v)) {
 				 std::queue<int>qcc;
@@ -186,12 +417,12 @@ while (s != (v = (++v%n)));//遍历全部点
 	 }
 
 	 template<typename Tv, typename Te>
-	 std::shared_ptr<std::vector<std::queue<int> > > Graph<Tv, Te>::dfs(int s)
+	 std::shared_ptr<std::list<std::queue<int> > > Graph<Tv, Te>::dfs(int s)
 	 {
 		 reset(); int clock = 0; int v = s;
-		 std::vector<std::queue<int> >*vqccv = new std::vector<std::queue<int> >;
-		 std::shared_ptr<std::vector<std::queue<int> > > vqcc(vqccv);//连通分量点记录队列向量
-		 std::weak_ptr<std::vector<std::queue<int> > > pw(vqcc);//引入weak_ptr打破循环引用
+		 std::list<std::queue<int> >*vqccv = new std::list<std::queue<int> >;
+		 std::shared_ptr<std::list<std::queue<int> > > vqcc(vqccv);//连通分量点记录队列向量
+		 std::weak_ptr<std::list<std::queue<int> > > pw(vqcc);//引入weak_ptr打破循环引用
 		 do
 			 if (VStatus::Undiscover == status(v)) {
 				 std::queue<int>qcc;
@@ -260,6 +491,56 @@ while (s != (v = (++v%n)));//遍历全部点
 			}
 		   return sqt;
 	  }
+
+	   template<typename Tv, typename Te>
+	    std::list<int> Graph<Tv, Te>::getArtPoint(int s)
+	   {
+		   reset(); int clock = 0; int v = s; std::stack<int>S;//栈S记录已访问的顶点
+		   std::list<int>apSet;//关节点集合
+		   do
+			   if (VStatus::Undiscover == status(v)) {
+				   BCC(v, clock, S, apSet);//关节点版
+				   int origin = S.top();
+				   S.pop();//删除剩下来的起点
+				   if (!apSet.empty()) {
+					   if (apSet.back() == origin)
+						   apSet.pop_back();//删除关节点中最后多余的一个起点
+				   }
+			   }
+		   while (s!=(v=++v%n));
+		   return apSet;
+	   }
+
+		template<typename Tv, typename Te>
+		 std::list<std::list<Edge<Te> > > Graph<Tv, Te>::bcc(int s)
+		{
+			 reset(); int clock = 0; int v = s; std::stack<int>S;//栈S记录已访问的顶点
+			 std::list<std::list<Edge<Te> > >bccSet;//关节点集合
+			 do
+				 if (VStatus::Undiscover == status(v)) {
+					 BCC(v, clock, S, bccSet);//关节点版
+					 S.pop();//删除剩下来的起点
+				 }
+			 while (s != (v = ++v%n));
+			 return bccSet;
+		}
+
+		 template<typename Tv, typename Te>
+		  void Graph<Tv, Te>::bcc(int s,std::list<int>& apSet, std::list<std::list<Edge<Te>>>& bccSet)
+		 {
+			  reset(); int clock = 0; int v = s; std::stack<int>S;//栈S记录已访问的顶点
+			do
+				  if (VStatus::Undiscover == status(v)) {
+					  BCC(v, clock, S, apSet,bccSet);//关节点版
+					  int origin = S.top();//起点
+					  S.pop();//删除剩下来的起点
+					  if (!apSet.empty()) {
+						  if(apSet.back()==origin)
+						  apSet.pop_back();//删除关节点中最后多余的一个起点
+					  }
+				  }
+			  while (s != (v = ++v%n));
+			 }
 
 	 template<typename Tv, typename Te>
 	  int Graph<Tv, Te>::findFirstOrigin()
@@ -413,7 +694,6 @@ while (s != (v = (++v%n)));//遍历全部点
 		 Tv Graph<Tv, Te>::remove(int i)
 		{
 			 if (i < 0 || i >= n) {
-				 std::cout << "err!" << std::endl;
 				 return Tv();
 			 }
 			 GH::Vertex<Tv>&tv = V[i];//保存顶点
@@ -479,6 +759,24 @@ while (s != (v = (++v%n)));//遍历全部点
 			++it;
 		}
 		return false;
+	}
+	template<typename Tv, typename Te>
+	 Edge<Te>& Graph<Tv, Te>::getEdge(int i, int j)
+	{
+		// TODO: 在此处插入 return 语句
+		 LET&el = E[i];//邻接链表
+		 TLEI it = el.begin();
+		 TLECI end = el.end();
+		 while (it != end)
+		 {
+			 Edge<Te>* &ev = *it;
+			 if (j == ev->address) {
+				 return  *ev;
+			 }
+			 ++it;
+		 }
+		 Edge<Te> err(Te(),-1);
+		 return err;
 	}
 	template<typename Tv, typename Te>
 	 Te Graph<Tv, Te>::remove(int i, int j)
@@ -557,12 +855,18 @@ while (s != (v = (++v%n)));//遍历全部点
 		  int err=-1;
 		  return err;
 	 }
+
+	 
 	  template<typename Tv, typename Te>
 	   void Graph<Tv, Te>::insert(Te const & edge, int weight, int i, int j)
 	  {
-		   if (i >= n || i < 0 || j >=n || j < 0)return;//极端情况
-		   if (exists(i, j))return;
-		   Edge<Te>*v = new Edge<Te>(edge, weight);
+		   if (i >= n || i < 0 || j >= n || j < 0) {
+			   return;//极端情况
+		   }
+		   if (exists(i, j)) {
+			   return;
+		   }
+		  Edge<Te>*v = new Edge<Te>(edge, weight);
 		   v->address =j;
 		   LET&el = E[i];
 		   el.push_back(v);

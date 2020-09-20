@@ -41,6 +41,19 @@ namespace GH {
 		Edge(Te const& d, int& w, Etype&t,int&a ) :
 			data(d), weight(w), type(t), address(a)
 		{}
+		explicit Edge(Edge<Te> const &e) {
+			this->data = e.data;
+			this->weight = e.weight;
+			this->address = e.address;
+			this->type = e.type;
+		}
+		Edge<Te>& operator=(Edge<Te>  &e) {
+			this->data = e.data;
+			this->weight = e.weight;
+			this->address = e.address;
+			this->type = e.type;
+			return *this;
+		}
 	};
 	template<typename Tv=int,typename Te=int>
 	class Graph
@@ -49,6 +62,10 @@ namespace GH {
 		virtual void BFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
 		virtual void DFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
 		virtual bool DFSTSort(int v,  std::stack<Tv>*);//连通域，dfs拓补排序
+		//无向图BCC算法（单个）
+		virtual void BCC(int v,int&clock,std::stack<int>&S,std::list<int>&apSet);//获取关节点
+		virtual void BCC(int v, int&clock, std::stack<int>&S, std::list<std::list<Edge<Te> > >&bccSet);//获取双连通域 一个二维链表
+		virtual void BCC(int v, int&clock, std::stack<int>&S, std::list<int>&apSet, std::list<std::list<Edge<Te> > >&bccSet);//获取双连通域 一个二维链表  获取关节点列表
 		public:
 		Graph();
 		explicit Graph(Graph<Tv, Te>  &);
@@ -56,10 +73,16 @@ namespace GH {
 	public:
 	
 		//算法
-		virtual	std::shared_ptr<std::vector<std::queue<int> > > bfs(int);//广度优先搜索算法 参数为起点 返回一个队列列表指针指针,图所有的广度搜索结果
-		virtual	std::shared_ptr<std::vector<std::queue<int> > > dfs(int);//深度优先搜索算法 参数为起点 返回一个队列列表智能指针,图所有的深度搜索结果
+		//注：如果返回的是局部变量，容器可以直接引用返回的局部对象的内存，这里用智能指针主要为了锻炼智能指针的使用，也是由于开始对stl各种性质不太熟悉
+		virtual	std::shared_ptr<std::list<std::queue<int> > > bfs(int);//广度优先搜索算法 参数为起点 返回一个队列列表指针指针,图所有的广度搜索结果
+		virtual	std::shared_ptr<std::list<std::queue<int> > > dfs(int);//深度优先搜索算法 参数为起点 返回一个队列列表智能指针,图所有的深度搜索结果
 		virtual	std::shared_ptr <std::stack<Tv> >dfsTopologicalSort(int s);//基于dfs的拓补排序算法
 		virtual std::shared_ptr <std::queue<Tv> >bfsTopologicalSort(int s);//基于bfs的拓补排序算法
+		//无向图BCC算法
+		virtual std::list<int> getArtPoint(int s);//获取无向图的关节点列表(只是顶点索引)
+		virtual std::list<std::list<Edge<Te> > > bcc(int s);//获取无向图的各个最大双连通域(边集合)
+		virtual void  bcc(int s,std::list<int>&apSet, std::list<std::list<Edge<Te> > >&bccSet);//获取无向图的各个最大双连通域(边集合)和关节点列表
+
 		virtual int findFirstOrigin();//找到第一个入度为0，出度不为0的顶点位置
 		virtual int nextOrigin(int i);//找到相对于i的下一个入度为0，出度不为0的顶点位置
 	
@@ -81,10 +104,11 @@ namespace GH {
 	 //边操作
 		
 		virtual bool exists(int i, int j);
+		virtual Edge<Te>& getEdge(int i, int j);//获取边
 		//赋值操作函数
 		virtual Etype& type(int i, int j);
 		virtual Te& edge(int i, int j);//边数据
-		virtual int& weight(int i, int j);
+virtual int& weight(int i, int j);
 		//边的动态操作
 		virtual void insert(Te const&edge,int weight,int i,int j);
 		virtual Te remove(int i, int j);//删除（i,j）
@@ -96,5 +120,5 @@ namespace GH {
 		std::vector<std::list<GH::Edge<Te>*> >E;// 边集合
 		 
 	};
-	
+
 }
