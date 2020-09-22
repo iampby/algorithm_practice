@@ -26,5 +26,8 @@
     <ClInclude Include="Graph.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PFSInf.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

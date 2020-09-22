@@ -9,7 +9,7 @@ namespace GH {
 #define TLEI typename std::list<Edge<Te>*>::iterator  //邻接链表迭代器声明
 #define TLECI typename std::list<Edge<Te>*>::const_iterator//邻接链表常量迭代器声明
 #define LET std::list<Edge<Te>*>   //邻接链表声明
-	enum class VStatus {
+enum class VStatus {
 		Undiscover,
 		Discover,
 		Visited
@@ -21,6 +21,7 @@ namespace GH {
 		Forward,
 		Backward
 	};
+	//顶点类型
 	template<typename Tv = int>
 	struct Vertex {
 		 Tv data; int inDegree; int outDegree; VStatus status;
@@ -32,6 +33,7 @@ namespace GH {
 
 	};
 	template<typename Te = int>
+	//边类型
 	struct Edge {
 	   Te data; Etype type; int weight;
 	   int address;//边是出边(u,v)的顶点v在V中的索引
@@ -55,9 +57,34 @@ namespace GH {
 			return *this;
 		}
 	};
-	template<typename Tv=int,typename Te=int>
+	//顶点优先级
+	struct PVertex
+	{
+		int index;//顶点索引
+		int priority;//顶点优先级数默认为最大int
+		//快捷构造
+		PVertex() {
+			index = -1; priority = INT_MAX;
+		}
+		PVertex(int index,int priority) {
+			this->index = index;
+			this->priority = priority;
+		}
+		//优先级队列需要的重载运算符
+		bool  operator > (PVertex const&v) {
+			if (priority > v.priority)return true;
+			else return false;
+		}
+		bool operator()(PVertex const& _Left, PVertex const& _Right) const
+		{	// apply operator> to operands
+			return (_Left.priority >_Right.priority);
+		}
+	}; 
+template<typename Tv=int,typename Te=int>
 	class Graph
 	{
+		//pfs统一搜索框架的优先级更新记录器;函数指针类型
+		typedef   void (*PU) (Graph <Tv,Te>*,int,int, std::priority_queue <PVertex, std::vector<PVertex>,PVertex >&);
 		virtual void reset();
 		virtual void BFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
 		virtual void DFS(int, int&, std::queue<int>&);//连通域，广度优先搜索
@@ -66,12 +93,15 @@ namespace GH {
 		virtual void BCC(int v,int&clock,std::stack<int>&S,std::list<int>&apSet);//获取关节点
 		virtual void BCC(int v, int&clock, std::stack<int>&S, std::list<std::list<Edge<Te> > >&bccSet);//获取双连通域 一个二维链表
 		virtual void BCC(int v, int&clock, std::stack<int>&S, std::list<int>&apSet, std::list<std::list<Edge<Te> > >&bccSet);//获取双连通域 一个二维链表  获取关节点列表
+
+
+		virtual void PFS(int v, PU& priorityUpdater);//优先级搜索（单个连通域）
 		public:
 		Graph();
-		explicit Graph(Graph<Tv, Te>  &);
+		explicit Graph(Graph<Tv, Te> &);
 		~Graph();                   
 	public:
-	
+		//static void(*PU)(Graph <Tv, Te>*, int, int) getPriorityUpdater() ;
 		//算法
 		//注：如果返回的是局部变量，容器可以直接引用返回的局部对象的内存，这里用智能指针主要为了锻炼智能指针的使用，也是由于开始对stl各种性质不太熟悉
 		virtual	std::shared_ptr<std::list<std::queue<int> > > bfs(int);//广度优先搜索算法 参数为起点 返回一个队列列表指针指针,图所有的广度搜索结果
@@ -82,7 +112,15 @@ namespace GH {
 		virtual std::list<int> getArtPoint(int s);//获取无向图的关节点列表(只是顶点索引)
 		virtual std::list<std::list<Edge<Te> > > bcc(int s);//获取无向图的各个最大双连通域(边集合)
 		virtual void  bcc(int s,std::list<int>&apSet, std::list<std::list<Edge<Te> > >&bccSet);//获取无向图的各个最大双连通域(边集合)和关节点列表
+		//连通图prim算法
+		virtual std::list<Edge<Te> >  prim(int s);//获取连通图的最小支持树
+		//带权网络Dijkstra算法
+		virtual std::list<Edge<Te> >  dijkstra(int s);//获取带权网络的最短路径树
 
+
+		//基于函数指针的优先级搜索框架
+		 virtual void pfs(int s, PU priorityUpdater);//优先级搜索框架（全图）
+	
 		virtual int findFirstOrigin();//找到第一个入度为0，出度不为0的顶点位置
 		virtual int nextOrigin(int i);//找到相对于i的下一个入度为0，出度不为0的顶点位置
 	
@@ -118,7 +156,8 @@ virtual int& weight(int i, int j);
 	
 		std::vector<GH::Vertex<Tv> >V;//顶点集
 		std::vector<std::list<GH::Edge<Te>*> >E;// 边集合
-		 
-	};
+	
+};
+
 
 }

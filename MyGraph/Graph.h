@@ -398,6 +398,7 @@ break;
 		 }
 		}
 
+
 	 template<typename Tv, typename Te>
 	 std::shared_ptr<std::list<std::queue<int> > > Graph<Tv, Te>::bfs(int s)
 	 {
@@ -405,13 +406,13 @@ break;
 		 std::list<std::queue<int> >*vqccv = new std::list<std::queue<int> >;
 		 std::shared_ptr<std::list<std::queue<int> > > vqcc(vqccv);//连通分量点记录队列向量
 		 std::weak_ptr<std::list<std::queue<int> > > pw(vqcc);//引入weak_ptr打破循环引用
-		 do
+		 do {
 			 if (VStatus::Undiscover == status(v)) {
 				 std::queue<int>qcc;
-				BFS(v, clock, qcc);//单个连通域搜索
-				if (qcc.size() > 1)vqcc->push_back(qcc);
+				 BFS(v, clock, qcc);//单个连通域搜索
+				 vqcc->push_back(qcc);
 			 }
-while (s != (v = (++v%n)));//遍历全部点
+		 } while (s != (v = (++v%n)));//遍历全部点
 		
 		 return vqcc;
 	 }
@@ -427,7 +428,7 @@ while (s != (v = (++v%n)));//遍历全部点
 			 if (VStatus::Undiscover == status(v)) {
 				 std::queue<int>qcc;
 				 DFS(v, clock, qcc);//单个连通域搜索
-				 if (qcc.size() > 1)vqcc->push_back(qcc);
+				vqcc->push_back(qcc);//
 			 }
 		 while (s != (v = (++v%n)));//遍历全部点
 
@@ -542,6 +543,139 @@ while (s != (v = (++v%n)));//遍历全部点
 			  while (s != (v = ++v%n));
 			 }
 
+		  template<typename Tv, typename Te>
+		  std::list<Edge<Te> >  Graph<Tv, Te>::prim(int s)
+		  {
+			  reset(); priority(s) = 0;
+			  std::list<Edge<Te> > MST;
+status(s) = VStatus::Visited;
+			  std::priority_queue <PVertex, std::vector<PVertex>, PVertex >pq;//优先级队列记录优先级
+			  for (int i = 0; i < n; i++) { //共需引入n个顶点和n-1条边 即n个点遍历，最短n-1条边
+				for (int j = firstNbr(s); -1 < j; j = nextNbr(s, j)) //枚举s的所有邻居j
+					  if ((status(j) == VStatus::Undiscover) && (priority(j) > weight(s, j))) //对邻接顶点j做松弛
+					  {
+						  priority(j) = weight(s, j); parent(j) = s;
+						  pq.push(PVertex(j, priority(j)));//入队优先级队列
+					  } //与Dijkstra算法唯一的不同之处
+				
+				  //找到最高优先级顶点，顶点迭代位置移动到最高优先级顶点
+				  if (pq.empty())break;//防极端情况 同时也代表T树生成
+					  s = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+				  pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+				 //如果已访问过，说明是更新时多出来的点，在这里去掉
+				  while (status(s) == VStatus::Visited) {
+					  if (pq.empty()) {
+						  goto label;//防极端情况 同时也代表T树生成
+					  }
+					  s = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+					  pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+				  }
+				  status(s) = VStatus::Visited;
+				  int &p = parent(s);
+				  if (-1 != p) {
+					  type(p, s) = Etype::Tree; //引入当前的s
+					  Edge<Te>&et = getEdge(p, s);//获取边
+					  MST.push_back(et);//保存支撑树的边
+				  }
+			  }
+		  label:;//结束标签，强制退出循环
+return MST;
+		  }
+
+		  template<typename Tv, typename Te>
+		   std::list<Edge<Te>> Graph<Tv, Te>::dijkstra(int s)
+		  {
+			   std::list<Edge<Te> >SPT;//最短路径树
+			   reset(); priority(s) = 0;
+			   status(s) = VStatus::Visited;
+			   std::priority_queue <PVertex, std::vector<PVertex>, PVertex >pq;//优先级队列记录优先级
+			   for (int i = 0; i < n; i++) { //共需引入n个顶点和n-1条边 即n个点遍历，最短n-1条边
+				   for (int j = firstNbr(s); -1 < j; j = nextNbr(s, j)) { //枚举s的所有邻居j
+					   int p = priority(s) + weight(s, j);
+					   if ((status(j) == VStatus::Undiscover) && (priority(j) >p)) //对邻接顶点j做松弛
+					   {
+						   priority(j) =p; parent(j) = s;
+						   pq.push(PVertex(j, priority(j)));//入队优先级队列
+					   } //与Prim算法唯一的不同之处
+				   }
+				   //找到最高优先级顶点，顶点迭代位置移动到最高优先级顶点
+				   if (pq.empty())break;//防极端情况 同时也代表T树生成
+				   s = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+				   pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+				  //如果已访问过，说明是更新时多出来的点，在这里去掉
+				   while (status(s) == VStatus::Visited) {
+					   if (pq.empty()) {
+						   goto label;//防极端情况 同时也代表T树生成
+					   }
+					   s = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+					   pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+				   }
+				   status(s) = VStatus::Visited;
+				   int &p = parent(s);
+				   if (-1 != p) {
+					   type(p, s) = Etype::Tree; //引入当前的s
+					   Edge<Te>&et = getEdge(p, s);//获取边
+					   SPT.push_back(et);//保存SPT的边
+				   }
+			   }
+		   label:;//结束标签，强制退出循环
+			  return SPT;
+		  }
+
+		
+
+		  template<typename Tv, typename Te>
+		  void Graph<Tv, Te>::PFS(int v, PU& priorityUpdater)
+		  {
+			 priority(v) =0; //初始化为0
+			 parent(v) = -1;//起点无父节点
+status(v) = VStatus::Visited;
+			std::priority_queue <PVertex, std::vector<PVertex>, PVertex >pq;//优先级队列记录优先级
+			std::cout << v << " ";
+			
+			while (true)
+			 {
+				 for (int w = firstNbr(v); -1 < w; w = nextNbr(v, w))
+					 priorityUpdater(this, v, w,pq);//更新顶点w的父顶点及优先级
+				 //找到最高优先级顶点，顶点迭代位置移动到最高优先级顶点
+				 if (pq.empty())break;//T树生成
+				v = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+				 pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+				 //如果已访问过，说明是更新时多出来的点，在这里去掉
+				 while (status(v) == VStatus::Visited) {
+					 if (pq.empty()) {
+						goto label;//防极端情况 同时也代表T树生成
+					 }
+					 v = pq.top().index;//顶点迭代位置移动到最高优先级顶点
+					 pq.pop();//Tk扩展为Tk+1，把优先级记录从补集V\U去掉
+					}
+				 status(v) = VStatus::Visited;
+				 int &p = parent(v);
+				 if (-1 != p) {
+					 type(p, v) = Etype::Tree; //引入当前的s
+					 std::cout << v << " ";
+					 std::cout << edge(p, v) << " ";
+					}
+				 }
+
+		label:;//结束标签，强制退出循环
+			
+		  }
+
+		  template<typename Tv, typename Te>
+		  void Graph<Tv, Te>::pfs(int s, PU priorityUpdater)
+		  {
+			  reset(); int v = s;
+			  std::cout << "PFS搜索：\n输出格式(vertex|edge ... )" << std::endl;
+			  do 
+				  if (status(v) == VStatus::Undiscover) {
+					  PFS(v, priorityUpdater); //更新单个连通域的顶点优先级
+				  }
+			  while (s != (v=++v%n));//遍历顶点
+			  std::cout <<  std::endl;
+		  }
+
+	
 	 template<typename Tv, typename Te>
 	  int Graph<Tv, Te>::findFirstOrigin()
 	 {
