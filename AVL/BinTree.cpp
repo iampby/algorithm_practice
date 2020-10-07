@@ -11,8 +11,8 @@ namespace BT {
 	{
 	protected:
 		int m_size; BNP(T) m_root;
-		virtual int updatem_height(BNP(T) n);//更新节点n高度
-		void updateAncestorm_height(BNP(T) n);//更新绩点n祖先高度
+		virtual int updateheight(BNP(T) n);//更新节点n高度
+		void updateAncestorheight(BNP(T) n);//更新绩点n祖先高度
 public:
 		 BinTree(); 
 	 BinTree(BinTree<T> const&);//复制整棵树 注：用的层次遍历方法分配空间 这种最快 但花费的空间最多

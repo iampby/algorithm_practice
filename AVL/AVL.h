@@ -95,14 +95,14 @@ namespace N_AVL{
 					parent->left = n;//和当点节点建立联系
 				}
 				else parent->right = n;
-				BinTree<T>::updateAncestorm_height(parent);//更新高度
+				BinTree<T>::updateAncestorheight(parent);//更新高度
 				p = n;
 			}
 			else {
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
 				p->right = n;
-				BinTree<T>::updateAncestorm_height(p);//更新高度
+				BinTree<T>::updateAncestorheight(p);//更新高度
 				parent = p;
 				p = n;
 			}
@@ -114,7 +114,7 @@ namespace N_AVL{
 			if (parent) {
 				if (parent->data > d)parent->left = p;
 				else parent->right = p;//重建关系 
-				BinTree<T>::updateAncestorm_height(parent);//更新高度
+				BinTree<T>::updateAncestorheight(parent);//更新高度
 			}
 			if (p->isRoot())this -> m_root = p;
 		}
@@ -125,7 +125,7 @@ namespace N_AVL{
 				break;//
 			}
 			else {
-					this->updatem_height(g);//即使平衡高度也可能变化
+					this->updateheight(g);//即使平衡高度也可能变化
 			}
 		return p;
 	}
@@ -139,7 +139,7 @@ namespace N_AVL{
 			if (!AVLBalanced(g)) {//一旦失衡，对孙子v节点做旋转操作 即对g节点采用3+4重构算法
 				g  = this->rotateAt(tallerChild(tallerChild(g)));//
 		        int h = g->m_height;
-				BinSearchTree<T>::updatem_height(g);//即使平衡高度也可能变化
+				BinSearchTree<T>::updateheight(g);//即使平衡高度也可能变化
 				}
 		return true;
 	}

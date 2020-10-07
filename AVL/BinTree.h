@@ -5,15 +5,15 @@
 #include<algorithm>
 namespace BT {
 	template<typename T>
-	inline  int BinTree<T>::updatem_height(BNP(T) n)
+	inline  int BinTree<T>::updateheight(BNP(T) n)
 	{
 return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 	}
 	 template<typename T>
-	 inline void BinTree<T>::updateAncestorm_height(BNP(T) n)
+	 inline void BinTree<T>::updateAncestorheight(BNP(T) n)
 	 {
 		 while (n&&n->m_height != 1 + __max(Stature(n->left), Stature(n->right))) {
-			  updatem_height(n); n = n->parent;
+			  updateheight(n); n = n->parent;
 			  };//纠正到平衡或树根为止
 	 }
 	template<typename T>
@@ -103,7 +103,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		{
 			 ++m_size;
 			 n->insertAsLeft(d);
-			 updateAncestorm_height(n);
+			 updateAncestorheight(n);
 			return n->left;
 		}
 		 template<typename T>
@@ -111,7 +111,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		 {
 			  ++m_size;
 			  n->insertAsRight(d);
-			  updateAncestorm_height(n);
+			  updateAncestorheight(n);
 			  return n->right;
 			 }
 		  template<typename T>
@@ -119,7 +119,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		  {
 			  n->left = t->m_root;
 			  n->left->parent = n;//接入
-			  m_size += t->m_size; updateAncestorm_height(n);
+			  m_size += t->m_size; updateAncestorheight(n);
 			  t->m_root = nullptr; 
 			  delete t, t = nullptr;
 			  return n;
@@ -129,7 +129,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		  {
 			  n->right = t->m_root;
 			  n->right->parent = n;//接入
-			  m_size += t->m_size; updateAncestorm_height(n);
+			  m_size += t->m_size; updateAncestorheight(n);
 			  t->m_root = nullptr;
 			  delete t, t = nullptr;
 			  return n;
@@ -138,7 +138,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		  inline  int BinTree<T>::remove(BNP(T) n)
 		  {
 			  inParentNodeOf(n) = nullptr;//父类指向或者根节点归零
-			  updateAncestorm_height(n->parent);
+			  updateAncestorheight(n->parent);
 			  int count = removeAt(n); m_size -= count;
 			  return count;
 		  }
@@ -146,7 +146,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		 inline  BinTree<T>* BinTree<T>::secede(BNP(T) n)
 		 {
 			 inParentNodeOf(n) = nullptr;//切断当前树与n节点联系
-			  updateAncestorm_height(n->parent);//更新当前树高度
+			  updateAncestorheight(n->parent);//更新当前树高度
 			  n->parent = nullptr;//切断树间联系
 			  BinTree<T>* nt = new  BinTree<T>;
 			  nt->m_root = n;//新树树根

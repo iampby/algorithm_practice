@@ -80,7 +80,7 @@ template<typename T>
 		if (t0)t0->parent = a; if (t1)t1->parent = a;
 		if (t2)t2->parent = c; if (t3)t3->parent = c;//1 2层关联
 		//更新树高
-		this->updatem_height(a); this->updatem_height(c); this->updatem_height(b);
+		this->updateheight(a); this->updateheight(c); this->updateheight(b);
 		return b;
 	}
 	template<typename T>
@@ -178,14 +178,14 @@ t = v;//更新树根或者在父类中的位置
 					parent->left=n;//和当点节点建立联系
 				}else parent->right = n;
 				if (n->isRoot())this->m_root = n;
-				BinTree<T>::updateAncestorm_height(parent);//更新高度
+				BinTree<T>::updateAncestorheight(parent);//更新高度
 				return n;
 			}
 			else {//叶节点情况
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
 				p->right = n;
-				BinTree<T>::updateAncestorm_height(p);//更新高度
+				BinTree<T>::updateAncestorheight(p);//更新高度
 				return n;
 			}
 		}
@@ -194,7 +194,7 @@ t = v;//更新树根或者在父类中的位置
 			p = new BinTreeNode<T>(d, m_hitNodeParent);
 				if (m_hitNodeParent->data > d)m_hitNodeParent->left = p;
 				else m_hitNodeParent->right = p;//重建关系 
-				BinTree<T>::updateAncestorm_height(m_hitNodeParent);//更新高度
+				BinTree<T>::updateAncestorheight(m_hitNodeParent);//更新高度
 			return p;
 		}
 	}
@@ -237,7 +237,7 @@ if (del->isLeftChild())
 		
 		delete del, del = nullptr;//释放实际删除的节点
 		this->m_size -= 1;//大小变化
-		BinTree<T>::updateAncestorm_height(m_hitNodeParent);
+		BinTree<T>::updateAncestorheight(m_hitNodeParent);
 return true;
 	}
 };
