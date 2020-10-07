@@ -95,14 +95,12 @@ namespace N_AVL{
 					parent->left = n;//和当点节点建立联系
 				}
 				else parent->right = n;
-				BinTree<T>::updateAncestorheight(parent);//更新高度
 				p = n;
 			}
 			else {
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
 				p->right = n;
-				BinTree<T>::updateAncestorheight(p);//更新高度
 				parent = p;
 				p = n;
 			}
@@ -114,7 +112,6 @@ namespace N_AVL{
 			if (parent) {
 				if (parent->data > d)parent->left = p;
 				else parent->right = p;//重建关系 
-				BinTree<T>::updateAncestorheight(parent);//更新高度
 			}else this -> m_root = p;
 		}
 		//至多只需一次调整,如果没有发生调整，则时间复杂度为O（1）,即正比与树高
@@ -136,8 +133,7 @@ namespace N_AVL{
 			//删除会发生“失衡传播”,需要多次调整,时间复杂度为与h正比
 		for (BNP(T)g = this->m_hitNodeParent; g; g = g->parent)
 			if (!AVLBalanced(g)) {//一旦失衡，对孙子v节点做旋转操作 即对g节点采用3+4重构算法
-				g  = this->rotateAt(tallerChild(tallerChild(g)));//
-		        int h = g->m_height;
+				g  = this->rotateAt(tallerChild(tallerChild(g)));
 				BinSearchTree<T>::updateheight(g);//即使平衡高度也可能变化
 				}
 		return true;
