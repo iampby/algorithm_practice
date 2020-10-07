@@ -177,7 +177,6 @@ t = v;//更新树根或者在父类中的位置
 				if (isLeft) {
 					parent->left=n;//和当点节点建立联系
 				}else parent->right = n;
-				if (n->isRoot())this->m_root = n;
 				BinTree<T>::updateAncestorheight(parent);//更新高度
 				return n;
 			}
@@ -190,11 +189,13 @@ t = v;//更新树根或者在父类中的位置
 			}
 		}
 		else {
-			++BinTree<T>::m_size;
-			p = new BinTreeNode<T>(d, m_hitNodeParent);
-				if (m_hitNodeParent->data > d)m_hitNodeParent->left = p;
-				else m_hitNodeParent->right = p;//重建关系 
-				BinTree<T>::updateAncestorheight(m_hitNodeParent);//更新高度
+			++BinTree<T>::m_size; 
+			p = new BinTreeNode<T>(d, this->m_hitNodeParent);
+			if (this->m_hitNodeParent) {
+				if (this->m_hitNodeParent->data > d)this->m_hitNodeParent->left = p;
+				else this->m_hitNodeParent->right = p;//重建关系 
+				BinTree<T>::updateAncestorheight(this->m_hitNodeParent);//更新高度
+			}else this->m_root = p;
 			return p;
 		}
 	}

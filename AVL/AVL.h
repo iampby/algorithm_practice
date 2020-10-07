@@ -115,8 +115,7 @@ namespace N_AVL{
 				if (parent->data > d)parent->left = p;
 				else parent->right = p;//重建关系 
 				BinTree<T>::updateAncestorheight(parent);//更新高度
-			}
-			if (p->isRoot())this -> m_root = p;
+			}else this -> m_root = p;
 		}
 		//至多只需一次调整,如果没有发生调整，则时间复杂度为O（1）,即正比与树高
 		for(BNP(T)g=parent;g;g=g->parent)

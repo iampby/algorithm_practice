@@ -16,7 +16,7 @@ int main()
 	//testBTN();
 	//testTraversal();
 	//testBST();
-	testAVL();
+	//testAVL();
 }
 void testAVL() {
 	AVL<string>tree;
@@ -178,7 +178,7 @@ void testBST() {
 	tree.remove(20); tree.remove(9); tree.remove(1); tree.remove(12); tree.remove(18);
 	cout << "looking here,inorder traversal result:" << endl;
 	tree.inorderTraversal(InorderTraversal<int>());
-
+	cout << endl;
 }
 void testTraversal() {
 	BinTree<string>tree;
