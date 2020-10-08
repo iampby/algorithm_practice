@@ -80,7 +80,7 @@ template<typename T>
 		if (t0)t0->parent = a; if (t1)t1->parent = a;
 		if (t2)t2->parent = c; if (t3)t3->parent = c;//1 2层关联
 		//更新树高
-		this->updateheight(a); this->updateheight(c); this->updateheight(b);
+		this->updateHeight(a); this->updateHeight(c); this->updateHeight(b);
 		return b;
 	}
 	template<typename T>

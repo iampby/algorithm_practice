@@ -11,7 +11,7 @@ namespace BT {
 	{
 	protected:
 		int m_size; BNP(T) m_root;
-		virtual int updateheight(BNP(T) n);//更新节点n高度 注:虚函数类内调用最好用域作用符指定调用，以保持功能与类名一致
+		virtual int updateHeight(BNP(T) n);//更新节点n高度 注:虚函数类内调用最好用域作用符指定调用，以保持功能与类名一致
 		void updateAncestorheight(BNP(T) n);//更新绩点n祖先高度
 public:
 		 BinTree(); 

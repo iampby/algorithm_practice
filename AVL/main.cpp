@@ -17,7 +17,7 @@ int main()
 	//testBTN();
 	//testTraversal();
 	//testBST();
-	//testAVL();
+	testAVL();
 
 }
 void testAVL() {

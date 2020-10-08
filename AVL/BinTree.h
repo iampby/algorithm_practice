@@ -5,7 +5,7 @@
 #include<algorithm>
 namespace BT {
 	template<typename T>
-	inline  int BinTree<T>::updateheight(BNP(T) n)
+	inline  int BinTree<T>::updateHeight(BNP(T) n)
 	{
 return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 	}
@@ -13,7 +13,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 	 inline void BinTree<T>::updateAncestorheight(BNP(T) n)
 	 {
 		 while (n&&n->m_height != 1 + __max(Stature(n->left), Stature(n->right))) {
-			 BinTree<T>::updateheight(n); n = n->parent;
+			 BinTree<T>::updateHeight(n); n = n->parent;
 			  };//纠正到平衡或树根为止
 	 }
 	template<typename T>
