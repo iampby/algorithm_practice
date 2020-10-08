@@ -125,7 +125,7 @@ namespace BTN {
 		 BNP(T) lChild = v->left;//c必须存在
 		 BNP(T) rChild = v->right;
 		 BNP(T)rl = lChild->right;
-		 v->swap(lChild);//先换皮也就是把v的数据和c交换
+		 v->BinTreeNode<T>::swap(lChild);//先换皮也就是把v的数据和c交换
 		 v->left = lChild->left;
 		 v->right = lChild;
 		 if(v->left)
@@ -156,7 +156,7 @@ namespace BTN {
 		 BNP(T) lChild = v->left;
 		 BNP(T) rChild = v->right;//c必须存在
 		 BNP(T)lr = rChild->left;
-		 v->swap(rChild);//先换皮也就是把v的数据和c交换
+		 v->BinTreeNode<T>::swap(rChild);//先换皮也就是把v的数据和c交换
 		 v->left = rChild;
 		 v->right = rChild->right;
 		 v->left->parent = v;

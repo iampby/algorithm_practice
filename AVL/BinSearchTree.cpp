@@ -145,7 +145,7 @@ t = v;//更新树根或者在父类中的位置
 	template<typename T>
 	TREE_OUTOFLINE BNP(T) BinSearchTree<T>::insert(T const &d)
 	{
-		BNP(T) p = search(d);
+		BNP(T) p = BinSearchTree<T>::search(d);
 		if (p) {//如果已存在，让他作为后继插入或者最后一个值为d的后继
 			BNP(T)forerunner = p;
 			BNP(T)parent = nullptr;//父亲节点初始化0
@@ -204,7 +204,7 @@ t = v;//更新树根或者在父类中的位置
 TREE_OUTOFLINE bool BinSearchTree<T>::remove(T const &d)
 	{
 
-		BNP(T)p = search(d);//要删除的节点
+		BNP(T)p = BinSearchTree<T>::search(d);//要删除的节点
 		if (!p)return false;//不存在直接返回
 		BNP(T)succ = nullptr;//实际被删除节点的替换者
 		BNP(T)del = p;//实际被删除的节点(注意不是要删除的节点)
