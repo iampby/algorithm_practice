@@ -135,7 +135,7 @@ TREE_OUTOFLINE BTN(T) BTree<T>::search(T const &d)
 		BTN(T)v = BTree<T>::search(d);
 		if (v) {//插入重复值 这里选择在二维容器中记录=号意义上的相同值 
 			int rank = Find(v->key, d);//查询适合插入的位置
-			ReallocVector(v->same[rank]);//相同值数量可能很大,预分配内存
+			ReallocVector(v->same[rank]);//相同值数量可能很大,预分配内存 即不使用默认预分配策略
 			v->same[rank].insert(v->same[rank].end(), d);//插入到容器末尾
 			++m_size;//规模更新;
 		}else {

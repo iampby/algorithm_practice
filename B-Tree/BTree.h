@@ -6,7 +6,7 @@
 namespace BT {
 	
 #define Find(X,V) find(X,V)
-	//vector不会自动分配 这里手动分配 按约定2倍扩大 按约定2因子缩小
+	//vector容器预分配过小 对于相同值的记录容器 这里采用手动分配 按约定2倍扩大 2因子缩小
 #define ReallocVector(X) {\
 if(X.size()>=X.capacity()-1)X.reserve(X.capacity()*2);\
 else if(X.size()<X.capacity()/2-4)X.reserve(X.capacity()/2);\
