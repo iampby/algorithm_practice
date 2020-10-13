@@ -171,7 +171,6 @@ t = v;//更新树根或者在父类中的位置
 					}
 }
 			}
-			if (parent) {//如果p有右孩子
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, parent);//新建一个节点 指向父亲节点
 				if (isLeft) {
@@ -179,14 +178,6 @@ t = v;//更新树根或者在父类中的位置
 				}else parent->right = n;
 				BinTree<T>::updateAncestorheight(parent);//更新高度
 				return n;
-			}
-			else {//叶节点情况
-				++BinTree<T>::m_size;
-				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
-				p->right = n;
-				BinTree<T>::updateAncestorheight(p);//更新高度
-				return n;
-			}
 		}
 		else {
 			++BinTree<T>::m_size; 
