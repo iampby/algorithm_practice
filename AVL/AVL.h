@@ -88,7 +88,6 @@ namespace N_AVL{
 					}
 				}
 			}
-			if (parent) {//如果p有右孩子
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, parent);//新建一个节点 指向父亲节点
 				if (isLeft) {
@@ -97,14 +96,6 @@ namespace N_AVL{
 				else parent->right = n;
 				p = n;
 			}
-			else {
-				++BinTree<T>::m_size;
-				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
-				p->right = n;
-				parent = p;
-				p = n;
-			}
-		}
 		else {
 			++BinTree<T>::m_size;
 			parent = this->m_hitNodeParent;
@@ -129,7 +120,10 @@ namespace N_AVL{
 	template<typename T>
 	TREE_OUTOFLINE bool AVL<T>::remove(T const &d)
 	{
-		if (!BinSearchTree<T>::remove(d))return false;//删除失败
+		if (!BinSearchTree<T>::remove(d)){
+			std::cout << "remove false\n";
+			return false;//删除失败
+		}
 			//删除会发生“失衡传播”,需要多次调整,时间复杂度为与h正比
 		for (BNP(T)g = this->m_hitNodeParent; g; g = g->parent)
 			if (!AVLBalanced(g)) {//一旦失衡，对孙子v节点做旋转操作 即对g节点采用3+4重构算法

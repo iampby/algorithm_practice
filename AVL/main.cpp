@@ -25,17 +25,18 @@ void testAVL() {
 	srand(time(NULL));
 	int low, up = 0;
 	do {
-		low = rand() % 2000;
-		up = rand() % 2000;
+		low = rand() % 1000;
+		up = rand() % 1000;
 		if (up < low) {
 			swap(up, low);
 		}
-	} while (up - low > 500);
+	} while (up - low > 200);
 	vector<int>num;
 	for (int i = low; i < up; ++i) {
 		num.insert(num.end(), i);
 	}
 	vector<int>r(num);
+	int n = 0;
 	while (!num.empty())
 	{
 		int s = rand() % (num.size());
@@ -43,7 +44,9 @@ void testAVL() {
 		advance(it, s);
 		tree.insert(*it);
 		num.erase(it);
+		++n;
 	}
+	cout << "inserted count: "<<n<<",tree size:"<<tree.size() << endl;
 	//前序遍历
 	cout << "preorder traversal:" << endl;
 	tree.preorderTraversal();
@@ -60,45 +63,12 @@ void testAVL() {
 	cout << "level traversal:" << endl;
 	tree.levelTraversal();
 	cout << endl;
-	cout << "tree root is " <<tree.root()->data<< endl;
-	cout << endl;
-	cout << "remove tree root " << tree.root()->data << endl;
-	tree.remove(tree.root()->data);
-	cout << "now tree root is " << tree.root()->data << endl;
-	cout << "inorder traversal:" << endl;
-	tree.inorderTraversal();
-	cout << endl;
-	int x = rand() % r.size();
-	auto it = r.begin();
-	cout << "remove "  <<r.at(x)<< endl;
-	tree.remove(r.at(x));
-	advance(it, x);
-	r.erase(it);
-	cout << "now tree root is " << tree.root()->data << endl;
-	cout << "inorder traversal:" << endl;
-	tree.inorderTraversal();
-	cout << endl;
-	 x = rand() % r.size();
-	it = r.begin();
-	advance(it, x);
-	cout << "remove  " <<*it<< endl;
-	tree.remove(*it);
-	cout << "now tree root is " << tree.root()->data << endl;
-	cout << "inorder traversal:" << endl;
-	tree.inorderTraversal();
-	cout << endl;
-	 x = rand() % r.size();
-	it = r.begin();
-	advance(it, x);
-	cout << "remove  " <<*it<< endl;
-	tree.remove(*it);
-	cout << "now tree root is " << tree.root()->data << endl;
-	cout << "inorder traversal:" << endl;
-	tree.inorderTraversal();
-	cout << endl;
+	
+	
 	cout << endl; cout << endl; cout << endl;
 	//构造函数和移动构造函数测试
 	cout <<"copy constructor tree:"<< endl;
+	cout << "old tree root is " << tree.root()->data << endl;
 	AVL<int>t=tree;
 	cout << "new tree root is " << t.root()->data << endl;
 	cout << "inorder traversal:" << endl;
@@ -114,6 +84,20 @@ void testAVL() {
 	cout << "inorder traversal old tree:" << endl;
 	cout << endl;
 	tree.inorderTraversal();
+	cout << "remove all:\n";
+	while (t1.size()>0)
+	{
+			int s = rand() % r.size();
+			auto it = r.begin();
+			advance(it, s);
+			cout << *it << " ";
+			t1.remove(*it);
+			r.erase(it);
+	}
+	cout << "\ntree isempty:"<<t1.empty()<<",tree size:"<<t1.size()<<endl;
+	cout << "inorder traversal empty tree:" << endl;
+	tree.inorderTraversal();
+	cout << endl;
 }
 //BST功能测试
 void testBST() {
@@ -190,6 +174,15 @@ void testBST() {
 	cout << "looking here,inorder traversal result:" << endl;
 	tree.inorderTraversal(InorderTraversal<int>());
 	cout << endl;
+	cout <<"remove all:" <<endl;
+	while (tree.size() > 0)
+	{
+		cout << tree.root()->data << " ";
+		tree.remove(tree.root()->data);
+	}
+	cout << "\nlooking here,inorder traversal result:" << endl;
+	tree.inorderTraversal(InorderTraversal<int>());
+	cout << endl;
 }
 void testTraversal() {
 	BinTree<string>tree;
@@ -225,6 +218,11 @@ void testTraversal() {
 	 cout << endl;
 	 cout << "level traversal:" << endl;
 	 tree.levelTraversal();
+	 cout << "remove all:"<<endl;
+	 tree.remove(tree.root());
+	 cout << "inorder traversal:" << endl;
+	 tree.inorderTraversal();
+	 cout << "tree isempty:"<<tree.empty()<<",tree size:"<<tree.size() << endl;
 }
 
 void testBTN() {
