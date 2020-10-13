@@ -171,7 +171,6 @@ t = v;//更新树根或者在父类中的位置
 					}
 }
 			}
-			if (parent) {//如果p有右孩子
 				++BinTree<T>::m_size;
 				BNP(T)n = new BinTreeNode<T>(d, parent);//新建一个节点 指向父亲节点
 				if (isLeft) {
@@ -179,14 +178,7 @@ t = v;//更新树根或者在父类中的位置
 				}else parent->right = n;
 				BinTree<T>::updateAncestorheight(parent);//更新高度
 				return n;
-			}
-			else {//叶节点情况
-				++BinTree<T>::m_size;
-				BNP(T)n = new BinTreeNode<T>(d, p);//新建一个节点 指向父亲节点
-				p->right = n;
-				BinTree<T>::updateAncestorheight(p);//更新高度
-				return n;
-			}
+		
 		}
 		else {
 			++BinTree<T>::m_size; 
@@ -212,13 +204,13 @@ TREE_OUTOFLINE bool BinSearchTree<T>::remove(T const &d)
 			succ=  p->right;//直接更新节点为右孩子
 if (del->isLeftChild())
 				del->parent->left = succ;
-			else del->parent->right= succ;
+			else if(del->parent)del->parent->right= succ;
 		}
 		else if (!p->hasRightChild()) {
 			succ = p->left;
 			if (del->isLeftChild())
 				del->parent->left = succ;
-			else del->parent->right = succ;
+			else  if (del->parent)del->parent->right = succ;
 		}
 		else {
 			del = del->succeed();
@@ -227,7 +219,7 @@ if (del->isLeftChild())
 			if (t == p) {
 				t->right = succ = del->right;//特殊情况，即右孩子为后继，直接更新右孩子为右孩子的后继
 			}
-			else {
+			else{
 				t->left = succ = del->right;//一般情况，后继必然为左孩子，更新左孩子为左孩子的右孩子或者空
 			}
 			}
@@ -238,6 +230,9 @@ if (del->isLeftChild())
 		
 		delete del, del = nullptr;//释放实际删除的节点
 		this->m_size -= 1;//大小变化
+		if (!this->m_hitNodeParent) {//如果删除了根节点，则更新为接替者
+			this->m_root = succ;
+		}
 		BinTree<T>::updateAncestorheight(m_hitNodeParent);
 return true;
 	}

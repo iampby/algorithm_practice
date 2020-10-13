@@ -251,13 +251,13 @@ namespace BTN {
 			  template<typename T>
 			  inline   BNP(T)& BinTreeNode<T>::sibling()
 			  {
-				  return (this->isLeftChild()? this->parent.right:this->parent.left);
+				  return (this->isLeftChild()? this->parent->right:this->parent->left);
 			  }
 
 			   template<typename T>
 			   inline   BNP(T)& BinTreeNode<T>::uncle()
 			   {
-				   return (this->isLeftChild()? this->parent->parent->right: this->parent.parent->left);
+				   return (this->parent->isLeftChild()? this->parent->parent->right: this->parent->parent->left);
 			   }
 
 			   template<typename T>

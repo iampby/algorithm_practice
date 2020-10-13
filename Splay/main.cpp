@@ -24,7 +24,7 @@ void testSplay() {
 		if (up < low) {
 			swap(up, low);
 		}
-} while (up-low>500|| up - low<20);
+} while (up-low>200|| up - low<20);
 vector<int>num;
 for (int i = low; i <up; ++i) {
 	num.insert(num.end(), i);
@@ -81,7 +81,8 @@ while (!r.empty())
 	r.erase(it);
 	}
 cout << endl;
-cout << "start inorder traversal:\n";
+cout << "tree is empty:"<<tree.empty()<<",tree size:"<<tree.size();
+cout << "\nstart inorder traversal:\n";
 tree.inorderTraversal();
 cout << "\nempty tree  represent as normal!\n";
 }
