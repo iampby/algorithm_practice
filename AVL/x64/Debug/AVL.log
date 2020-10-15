@@ -1,0 +1,28 @@
+﻿  BinSearchTree.cpp
+  BinTree.cpp
+  main.cpp
+c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\main.cpp(25): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\bintreenode.cpp(49): warning C4521: “BTN::BinTreeNode<T>”: 指定了多个复制构造函数
+          with
+          [
+              T=int
+          ]
+  c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\main.cpp(71): note: 参见对正在编译的 类 模板 实例化 "BTN::BinTreeNode<T>" 的引用
+          with
+          [
+              T=int
+          ]
+c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\main.cpp(106): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\bintreenode.cpp(49): warning C4521: “BTN::BinTreeNode<T>”: 指定了多个复制构造函数
+          with
+          [
+              T=std::string
+          ]
+  c:\users\administrator\desktop\新建文件夹 (3)\algorithm_practice\avl\main.cpp(269): note: 参见对正在编译的 类 模板 实例化 "BTN::BinTreeNode<T>" 的引用
+          with
+          [
+              T=std::string
+          ]
+  BinTreeNode.cpp
+  正在生成代码...
+  AVL.vcxproj -> C:\Users\Administrator\Desktop\新建文件夹 (3)\algorithm_practice\x64\Debug\AVL.exe

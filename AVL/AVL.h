@@ -128,7 +128,7 @@ namespace N_AVL{
 		for (BNP(T)g = this->m_hitNodeParent; g; g = g->parent)
 			if (!AVLBalanced(g)) {//一旦失衡，对孙子v节点做旋转操作 即对g节点采用3+4重构算法
 				g  = this->rotateAt(tallerChild(tallerChild(g)));
-				BinSearchTree<T>::updateHeight(g);//即使平衡高度也可能变化
+				this->updateHeight(g);//即使平衡高度也可能变化
 				}
 		return true;
 	}

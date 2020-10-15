@@ -14,9 +14,9 @@ void testBST();//测试二叉搜索树的插入删除功能
 void testAVL();//测试AVL功能 这是随机生成树
 int main()
 {
-	//testBTN();
-	//testTraversal();
-	//testBST();
+	testBTN();
+	testTraversal();
+	testBST();
 	testAVL();
 
 }
