@@ -66,7 +66,7 @@ template<typename T>
 	}
 	
 	template<typename T>
-	inline  BNP(T) Splay<T>::insert(T const &d, InsertWay way)
+	TREE_OUTOFLINE  BNP(T) Splay<T>::insert(T const &d, InsertWay way)
 	{
 		switch (way)
 		{
@@ -74,7 +74,7 @@ template<typename T>
 			return insertByInsert(d);
 			}
 		case InsertWay::InsertBySearch:
-			return  Splay<T>::insert(d);
+			return  insert(d);
 }
 			return nullptr;
 	}
@@ -104,7 +104,53 @@ template<typename T>
 	template<typename T>
 	TREE_OUTOFLINE BNP(T) Splay<T>::insertByInsert(T const &d)
 	{
-		BNP(T)p= BinSearchTree<T>::insert(d);
+		//BNP(T)p= BinSearchTree<T>::insert(d);为了多态性，这里重写一遍BST插入
+		BNP(T) p = BinSearchTree<T>::search(d);
+		if (p) {//如果已存在，让他作为后继插入或者最后一个值为d的后继
+			BNP(T)forerunner = p;
+			BNP(T)parent = nullptr;//父亲节点初始化0
+			bool isLeft = false;
+			while (true)
+			{
+				if (forerunner->data == d) {
+					if (forerunner->hasRightChild()) {
+						forerunner = forerunner->right;//后继必然位于右边
+					}
+					else {
+						parent = forerunner;//找到父节点
+						isLeft = false;
+						break;
+					}
+				}
+				else {
+					if (forerunner->hasLeftChild())
+						forerunner = forerunner->left;//后继必在左孩子方向上
+					else {
+						parent = forerunner;//找到父节点
+						isLeft = true;
+						break;
+					}
+				}
+			}
+			++BinTree<T>::m_size;
+			BNP(T)n = new BinTreeNode<T>(d, parent);//新建一个节点 指向父亲节点
+			if (isLeft) {
+				parent->left = n;//和当点节点建立联系
+			}
+			else parent->right = n;
+			this->updateAncestorheight(parent);//更新高度
+			p = n;//记录新节点
+		}
+		else {
+			++BinTree<T>::m_size;
+			p = new BinTreeNode<T>(d, this->m_hitNodeParent);
+			if (this->m_hitNodeParent) {
+				if (this->m_hitNodeParent->data > d)this->m_hitNodeParent->left = p;
+				else this->m_hitNodeParent->right = p;//重建关系 
+				this->updateAncestorheight(this->m_hitNodeParent);//更新高度
+			}
+			else this->m_root = p;
+		}
 		this->m_root=splay(p);//逐层伸展到树根
 		return this->m_root;
 	}

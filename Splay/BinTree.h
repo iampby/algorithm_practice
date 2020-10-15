@@ -12,8 +12,11 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 	 template<typename T>
 	 inline void BinTree<T>::updateAncestorheight(BNP(T) n)
 	 {
-		 while (n&&n->m_height != 1 + __max(Stature(n->left), Stature(n->right))) {
-			 BinTree<T>::updateHeight(n); n = n->parent;
+		 while (n) {
+			 int h = n->m_height;
+			updateHeight(n);
+			if (h == n->m_height)break;//已经平衡
+			n = n->parent;
 			  };//纠正到平衡或树根为止
 	 }
 	template<typename T>
@@ -190,7 +193,7 @@ return n->m_height=1+std::max(Stature(n->left),Stature(n->right));
 		 template<typename T>
 		 inline   bool BinTree<T>::operator<(BinTree<T> const & t)
 		 {
-			 return  m_root&&t.m_root&&std::max(m_root->data,t.m_root->data);
+			 return  m_root&&t.m_root&&(m_root->data<t.m_root->data);
 		 }
 		 template<typename T>
 		 inline  bool BinTree<T>::operator>(BinTree<T> const & t)

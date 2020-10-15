@@ -23,7 +23,6 @@ namespace BST {
 BNP(T) rotateAt(BNP(T));//节点祖先旋转处理 思路是按g p v 位置分4中情况处理 参数为孙辈节点v
 
 	public://基本接口，要求所有派生类实现各自功能
-		//注 : 虚函数类内调用最好用域作用符指定调用，以保持功能与类名一致
 		 virtual BNP(T) search(T const&);//这里和书上不同，不要返回指针的引用，因为返回指针是复制的临时变量，失去作用域一样丢失内容，为了方便操作,就不返回指针引用了
 		 virtual BNP(T) insert(T const&);//如插入相同值则作为最后一个相同值节点的后继
 		 virtual bool remove(T const &);

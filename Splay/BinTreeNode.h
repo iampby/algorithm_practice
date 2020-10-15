@@ -20,9 +20,9 @@ namespace BTN {
 	template<typename T>
 	inline void BinTreeNode<T>::swap(BNP(T) n)
 	{
-		T d = this->data; int h = this->m_height;
-		this->data = n->data; this->m_height = n->m_height;
-		n->data = d; n->m_height = h;
+		T d = this->data; //int h = this->m_height;
+		this->data = n->data; 
+		n->data = d; 
 	}
 
 	template<typename T>
@@ -125,7 +125,7 @@ namespace BTN {
 		 BNP(T) lChild = v->left;//c必须存在
 		 BNP(T) rChild = v->right;
 		 BNP(T)rl = lChild->right;
-		 v->BinTreeNode<T>::swap(lChild);//先换皮也就是把v的数据和c交换
+		 v->swap(lChild);//先换皮也就是把v的数据和c交换
 		 v->left = lChild->left;
 		 v->right = lChild;
 		 if(v->left)
@@ -156,7 +156,7 @@ namespace BTN {
 		 BNP(T) lChild = v->left;
 		 BNP(T) rChild = v->right;//c必须存在
 		 BNP(T)lr = rChild->left;
-		 v->BinTreeNode<T>::swap(rChild);//先换皮也就是把v的数据和c交换
+		 v->swap(rChild);//先换皮也就是把v的数据和c交换
 		 v->left = rChild;
 		 v->right = rChild->right;
 		 v->left->parent = v;

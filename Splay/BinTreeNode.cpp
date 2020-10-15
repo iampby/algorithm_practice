@@ -19,7 +19,7 @@ namespace BTN{//树节点命名空间
 		~BinTreeNode();
 //操作接口
 		int size();//统计当前节点后代总数 这里用暴力计数
-		virtual void swap(BNP(T));//交换2个节点的数据 注:虚函数类内调用最好用域作用符指定调用，以保持功能与类名一致
+		virtual void swap(BNP(T));//交换2个节点的数据 注：仅仅交换数据，不要交换树结构信息 用来换皮
 		//插入
 		BNP(T) insertAsLeft(T const&);
 		BNP(T) insertAsRight(T const&);
