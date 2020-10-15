@@ -13,7 +13,7 @@ public:
 	explicit  BTreeNode(int  order);//默认构造函数 创建一个空B-tree，初始化时有0个关键码及1个空孩子分支 参数预示vector预分配内存大小
 	BTreeNode(T const&, const int &order, BTN(T)lc = nullptr, BTN(T)rc = nullptr);//创建一个非空B-tree，即至少一个关键码和至少2个分支
 	BTN(T)parent;//父节点
-	std::vector< std::vector<T> >same;//相同值容器 注：这里采用一个容器来保存相同值，这样对于相等的值，我们在对应键值位置记录数据但不更新树结构,删除也一样
+	std::vector< std::vector<T> >same;//相同值容器 注：这里采用一个容器来保存相同值，由于左右插入有点麻烦，建表的方式很方便，这样对于相等的值，我们在对应键值位置记录数据但不更新树结构,删除也一样
 	std::vector<T>key;//关键码
 	std::vector<BTN(T)>child;//孩子分支，总比关键码多1
 };
