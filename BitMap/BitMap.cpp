@@ -65,6 +65,7 @@ SBitMap::SBitMap(int n)
 
 SBitMap::~SBitMap()
 {
+	delete m_nBitSet, m_nBitSet = nullptr;
 }
 
 void SBitMap::reset()
