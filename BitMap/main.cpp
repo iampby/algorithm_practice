@@ -2,7 +2,7 @@
 //
 #include"BitMap.h"
 #include <iostream>
-#include<time.h>
+#include<chrono>
 using namespace std;
 void testPerformance();//对640000个数据标记，测试性能
 int main()
@@ -13,26 +13,26 @@ void testPerformance() {
 	int n = 640000;
 	SBitMap bm(10000);
 	printf("test set() with a scale of %d..\n\t", n);
-	clock_t tm = clock();
+	auto tm =  chrono::steady_clock::now();
 	for (int i = 0; i < n; ++i) {
 		bm.set(rand() % 2 ? i : (-i));
 	}
-	tm = clock() - tm;
-	printf("takes %g sec..\n\t", (double)tm / CLOCKS_PER_SEC);
+	auto dur = chrono::duration<double>((chrono::steady_clock::now())-tm);
+	printf("takes %g sec..\n\t", dur.count());
 	printf("test test() with a scale of %d..\n\t", n);
-	tm = clock();
+	tm = chrono::steady_clock::now();
 	for (int i = 0; i < n; ++i) {
 		bm.test(rand() % 2 ? i : (-i));
 	}
-	tm = clock() - tm;
-	printf("takes %g sec..\n\t", (double)tm / CLOCKS_PER_SEC);
+	dur = chrono::duration<double>((chrono::steady_clock::now()) - tm);
+	printf("takes %g sec..\n\t", dur.count());
 	printf("test clear() with a scale of %d..\n\t", n);
-	tm = clock();
+	tm = chrono::steady_clock::now();
 	for (int i = 0; i < n; ++i) {
 		bm.clear(rand() % 2 ? i : (-i));
 	}
-	tm = clock() - tm;
-	printf("takes %g sec..\n\t", (double)tm / CLOCKS_PER_SEC);
+	dur = chrono::duration<double>((chrono::steady_clock::now()) - tm);
+	printf("takes %g sec..\n\t", dur.count());
 }
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单

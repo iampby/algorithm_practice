@@ -70,7 +70,8 @@ SBitMap::~SBitMap()
 
 void SBitMap::reset()
 {
-	this->reset();//转基类调用
+	this->BitMap::reset();//转基类调用
+	m_nBitSet->reset();
 }
 
 bool SBitMap::set(long long k)
