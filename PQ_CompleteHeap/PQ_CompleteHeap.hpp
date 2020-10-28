@@ -19,7 +19,6 @@ public:
 	 const T& top();//µ¯³ö¶Ñ¶¥
 	 void pop();//É¾³ý¶Ñ¶¥
 	 int size()const;
-	 void heapSort(int );
 protected:
 	 //¸¨Öúº¯Êý
 	int left(int i)const;//×óº¢×ÓË÷Òý
