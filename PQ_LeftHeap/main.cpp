@@ -17,8 +17,8 @@ int main()
 }
 void testFunc() {
 	PQ_LeftHeap<> pq;
-	srand((unsigned int)((double)time(NULL)));
-	int n =15000000; int max = -RAND_MAX;
+	srand((unsigned int)time(NULL));
+	int n =rand()%20000000; int max = -RAND_MAX;
 	printf("\ttesting inserting %d...\n\t", n);
 	auto tm = chrono::steady_clock::now();
 	while (n-- > 0)
@@ -29,13 +29,16 @@ void testFunc() {
 	}
 	auto dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
 	printf("takes %lf sec...\n\tthe top of priority queue is %d,real maxinum value is %d...\n\t", dur.count(), pq.top(), max);
+	printf("the NPL of priority queue is %d...\n\t", pq.NPL());
 	printf("removing the top...\n\t");
 	pq.pop();
 	printf("now the top is %d...\n\t", pq.top());
 	printf("removing all...\n\t");
 	tm = chrono::steady_clock::now();
+	int last = pq.top();
 	while (!pq.empty())
 	{
+		if (pq.top() > last)cout << "algorithm error!\n\t";
 		pq.pop();
 	}
 	dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
@@ -43,7 +46,7 @@ void testFunc() {
 };
 void testConstructor2() {
 	srand((unsigned int)time(NULL));
-	int n = 15000000; int max = RAND_MAX;
+	int n = rand() % 20000000;; int max = RAND_MAX;
 	vector<int>vec(n);
 	while (n-- > 0)
 	{
@@ -56,13 +59,16 @@ void testConstructor2() {
 	PQ_LeftHeap<int, myGreater<int> >pq(std::move(vec));
 	auto dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
 	printf("takes %lf sec...\n\tthe top of priority queue is %d,real  mininum value is %d...\n\t", dur.count(), pq.top(), max);
+	printf("the NPL of priority queue is %d...\n\t",pq.NPL());
 	printf("removing the top...\n\t");
 	pq.pop();
 	printf("now the top is %d...\n\t", pq.top());
 	printf("removing all...\n\t");
 	tm = chrono::steady_clock::now();
+	int last=pq.top();
 	while (!pq.empty())
 	{
+		if(pq.top()<last)cout<<"algorithm error!\n\t";
 		pq.pop();
 	}
 	dur = chrono::duration<double>(chrono::steady_clock::now() - tm);

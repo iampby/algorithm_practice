@@ -73,19 +73,18 @@ template<typename T, typename _Comparer>
 	 BTN::BNP(T)_last = nullptr;//记录最后一个用于更新npl
 	 //保证堆序
 	 if (f_comparer(_left->data, _right->data)) {
-		 BTN::BNP(T)_rc = _left;
 		 std::swap(_left, _right);//保证左合并右时保证堆序
 	 }
 	 _last = _right;
 	 BTN::BNP(T) r = _left;
 	 if (!_left->left) {
 		 _left->left = _right;
-		 if (_right)_right->parent = _left;
+		 _right->parent = _left;
 		 goto end;
 	 }
 	 else if (!_left->right) {
 		 _left->right = _right;
-		 if (_right)_right->parent = _left;
+		 _right->parent = _left;
 		 goto end;
 	 }
   _left = _left->right;
@@ -96,8 +95,8 @@ template<typename T, typename _Comparer>
 			 std::swap(_left, _right);//保证左合并右时保证堆序
 			 _rc->parent->right = _left;//取左右堆大值向下接入
 			 _left->parent = _rc->parent;//向上联接
-			 _last = _right;
-		 }
+			}
+		 _last = _right;
 		if (!_left->left) {
 			_left->left = _right;
 			_right->parent = _left;
@@ -123,6 +122,7 @@ template<typename T, typename _Comparer>
 			 PQ_LeftHeap<T, _Comparer>::updateNPL(_last);
 			 _last = _last->parent;
 		 }
+		 PQ_LeftHeap<T, _Comparer>::updateNPL(r);
 	 return r;
 	 }
  }
