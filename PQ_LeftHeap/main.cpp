@@ -18,18 +18,20 @@ int main()
 void testFunc() {
 	PQ_LeftHeap<> pq;
 	srand((unsigned int)time(NULL));
-	int n =rand()%20000000; int max = -RAND_MAX;
-	printf("\ttesting inserting %d...\n\t", n);
+	int n = ((rand() % 2) ? (rand() % 2) ? (rand()*rand()*rand()) : rand()*rand() : rand()) % 15000000; int max = -RAND_MAX;
+	n = ((rand() % 2) ? (rand() % 2) ? (n / (rand()*rand())) : n / rand() : n);
+	if (n < 0)n = -n;
+	printf("\ttesting inserting %ld...\n\t", n);
 	auto tm = chrono::steady_clock::now();
 	while (n-- > 0)
 	{
-		int v = rand() % 2 ? rand() : -rand();
+		int v = (rand() % 2) ? ((rand() % 2) ? (rand() % 2) ? (rand()*rand()*rand()) : rand()*rand() : rand()) : ((rand() % 2) ? (rand() % 2) ? (-rand()*rand()*rand()) : -rand()*rand() : -rand());
 		if (max < v) {  max = v; }
 		pq.push(v);
 	}
 	auto dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
-	printf("takes %lf sec...\n\tthe top of priority queue is %d,real maxinum value is %d...\n\t", dur.count(), pq.top(), max);
-	printf("the NPL of priority queue is %d...\n\t", pq.NPL());
+	printf("takes %lf sec...\n\tthe top of priority queue is %d,real maxinum value is %ld...\n\t", dur.count(), pq.top(), max);
+	printf("the NPL of priority queue is %ld...\n\t", pq.NPL());
 	printf("removing the top...\n\t");
 	pq.pop();
 	printf("now the top is %d...\n\t", pq.top());
@@ -42,27 +44,29 @@ void testFunc() {
 		pq.pop();
 	}
 	dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
-	printf("takes %lf sec...\n\tthe size of priority queue is %d...\n\t", dur.count(), pq.size());
+	printf("takes %lf sec...\n\tthe size of priority queue is %ld...\n\t", dur.count(), pq.size());
 };
 void testConstructor2() {
 	srand((unsigned int)time(NULL));
-	int n = rand() % 20000000;; int max = RAND_MAX;
+	int n = ((rand() % 2) ? (rand() % 2) ? (rand()*rand()*rand()) : rand()*rand() : rand()) % 15000000; int max = RAND_MAX;
+	n = ((rand() % 2) ? (rand() % 2) ? (n/(rand()*rand())) :n/rand() : n);
+	if (n < 0)n = -n;
 	vector<int>vec(n);
 	while (n-- > 0)
 	{
-		int v = rand() % 2 ? rand() : -rand();
+		int v = (rand() % 2) ? ((rand() % 2) ? (rand() % 2)?(rand()*rand()*rand()): rand()*rand():rand()) : ((rand() % 2) ? (rand() % 2) ? (-rand()*rand()*rand()) :- rand()*rand() : -rand());
 		if (max > v)max = v;
 		vec[n] = v;
 	}
-	printf("testing constructor with argument  vector's capacity is  %d...\n\t", vec.size());
+	printf("testing constructor with argument  vector's capacity is  %ld...\n\t", vec.size());
 	auto tm = chrono::steady_clock::now();
 	PQ_LeftHeap<int, myGreater<int> >pq(std::move(vec));
 	auto dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
-	printf("takes %lf sec...\n\tthe top of priority queue is %d,real  mininum value is %d...\n\t", dur.count(), pq.top(), max);
-	printf("the NPL of priority queue is %d...\n\t",pq.NPL());
+	printf("takes %lf sec...\n\tthe top of priority queue is %ld,real  mininum value is %ld...\n\t", dur.count(), pq.top(), max);
+	printf("the NPL of priority queue is %ld...\n\t",pq.NPL());
 	printf("removing the top...\n\t");
 	pq.pop();
-	printf("now the top is %d...\n\t", pq.top());
+	printf("now the top is %ld...\n\t", pq.top());
 	printf("removing all...\n\t");
 	tm = chrono::steady_clock::now();
 	int last=pq.top();
@@ -72,7 +76,7 @@ void testConstructor2() {
 		pq.pop();
 	}
 	dur = chrono::duration<double>(chrono::steady_clock::now() - tm);
-	printf("takes %lf sec...\n\tthe size of priority queue is %d...\n\t", dur.count(), pq.size());
+	printf("takes %lf sec...\n\tthe size of priority queue is %ld...\n\t", dur.count(), pq.size());
 }
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
