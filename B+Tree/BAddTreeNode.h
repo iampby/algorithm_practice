@@ -17,9 +17,8 @@ namespace BATN {
 	template<typename K, typename E>
 	class BAddTreeNode {
 	public:
-		BAddTreeNode();
 		//只能作为根节点创建 
-		explicit BAddTreeNode(int  order);//默认构造函数 创建一个空B-tree，初始化时有0个关键码及1个空孩子分支 
+		explicit BAddTreeNode();//默认构造函数 创建一个空B-tree，初始化时有0个关键码及1个空孩子分支 
 	   ~BAddTreeNode();//注：析构不释放孩子内存仅仅释放e内存
 	    bool isLeaf()const;//通过孩子是否为空判断是否为底层节点
 	public:
@@ -28,14 +27,9 @@ namespace BATN {
 		std::deque<BAddTreeNode<K, E>*>child;//孩子分支，总比关键码多1
 };
 
-	template<typename K, typename E>
-	inline BAddTreeNode<K, E>::BAddTreeNode()
-	{
-		parent = nullptr; 
-	}
 
 	template<typename K, typename E>
-	inline BAddTreeNode<K, E>::BAddTreeNode(int order)
+	inline BAddTreeNode<K, E>::BAddTreeNode()
 	{
 		parent = nullptr;
 		child.insert(child.end(), nullptr);//默认孩子为空
@@ -61,22 +55,18 @@ namespace BATN {
 	class BAddTreeLeafNode :public BAddTreeNode<K,E>
 	{
 	public:
-		BAddTreeLeafNode();
-		explicit BAddTreeLeafNode(int  order);//默认构造函数 创建一个空B-tree，初始化时有0个关键码及1个空孩子分支 
+		//只能作为根节点创建 
+		explicit BAddTreeLeafNode();//默认构造函数 创建一个空B-tree，初始化时有0个关键码及1个空孩子分支 
 		~BAddTreeLeafNode();
 	public:
 		std::deque <E*>e;//记录
 		BAddTreeLeafNode<K, E>*last, *next;//链表前后
 	};
 
+	
 	template<typename K, typename E>
 	inline BAddTreeLeafNode<K, E>::BAddTreeLeafNode()
-	{
-		last = nullptr; next = nullptr;
-	}
-	template<typename K, typename E>
-	inline BAddTreeLeafNode<K, E>::BAddTreeLeafNode(int order)
-		:BAddTreeNode<K, E>(order)
+		:BAddTreeNode<K, E>()
 	{
 		last = nullptr; next = nullptr;
 	}

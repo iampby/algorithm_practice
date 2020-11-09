@@ -48,7 +48,7 @@ namespace BAT {
 		if (order < 2)order = 2;//默认2阶
 		m_order = order;
 		//注：根初始化为叶子节点
-		this->m_root = new BAddTreeLeafNode<K,E>(m_order); m_size = 0; m_hitParentNode = nullptr;
+		this->m_root = new BAddTreeLeafNode<K,E>(); m_size = 0; m_hitParentNode = nullptr;
 		m_header = new BAddTreeLeafNode<K,E>();
 		m_trail = new BAddTreeLeafNode<K,E>();
 		BAddTreeLeafNode<K, E>*_leaf = (BAddTreeLeafNode<K, E>*)(this->m_root);
@@ -202,7 +202,7 @@ namespace BAT {
 			int mid =m_order / 2;//分裂出去的父序
 			BAddTreeLeafNode<K, E>*_r;
 			if (v->isLeaf()) {//情况一 叶节点复制上溢点部分并更新链表
-				_r= new BAddTreeLeafNode<K, E>(m_order);//注：默认有一个空分支
+				_r= new BAddTreeLeafNode<K, E>();//注：默认有一个空分支
 				//记录处理
 				{
 					_r->e.insert(_r->e.begin(), v->e.begin() + mid, v->e.end());
@@ -225,7 +225,7 @@ namespace BAT {
 				_r->last = v; v->next = _r;
 			}
 			else {//情况二 内部节点不复制上溢点部分 且没有记录
-				_r=static_cast<BAddTreeLeafNode<K,E>*>(new BAddTreeNode<K, E>(m_order));//注：默认有一个空分支
+				_r=static_cast<BAddTreeLeafNode<K,E>*>(new BAddTreeNode<K, E>());//注：默认有一个空分支
 				//关键字处理
 				{
 					_r->key.insert(_r->key.begin(), v->key.begin() + mid+1, v->key.end());
@@ -249,7 +249,7 @@ namespace BAT {
 				}
 				BAddTreeNode<K, E>*p = v->parent;
 				if (!p) {
-					this->m_root = p = new BAddTreeNode<K, E>(m_order); p->child[0] = v; v->parent = p;//上溢点为根，建立新根
+					this->m_root = p = new BAddTreeNode<K, E>(); p->child[0] = v; v->parent = p;//上溢点为根，建立新根
 				}
 				K& k = v->key[v->key.size() - 1];//上溢码
 				int i = 0; while (p->child[i] != v)++i;
