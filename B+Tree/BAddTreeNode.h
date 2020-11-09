@@ -66,7 +66,6 @@ namespace BATN {
 	
 	template<typename K, typename E>
 	inline BAddTreeLeafNode<K, E>::BAddTreeLeafNode()
-		:BAddTreeNode<K, E>()
 	{
 		last = nullptr; next = nullptr;
 	}
