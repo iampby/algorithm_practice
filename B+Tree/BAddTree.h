@@ -322,7 +322,7 @@ namespace BAT {
 						_right->child.erase(_right->child.begin());//É¾³ı
 						{
 							auto it =_right->key.begin()+1;
-							p->key[rank ] = (it!=_right->key.end()?*(it--):*(--it)+1);//¸¸½Úµã¹Ø¼ü×ÖÌæ»»
+							p->key[rank ] = *(it--);//¸¸½Úµã¹Ø¼ü×ÖÌæ»»
 							v->key.insert(v->key.end(), *it);//½èÒ»¸ö¹Ø¼ü×Ö
 							_right->key.erase(it);//É¾³ı
 						}

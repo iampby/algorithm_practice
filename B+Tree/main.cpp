@@ -38,7 +38,7 @@ int main()
 	testBTree();
 }
 void testBTree() {
-	 BAddTree<int,Entry>tree(5);
+	 BAddTree<int,Entry>tree(1);
 	int low, up = 0;
 	do {
 		low = rand() % 100;
@@ -47,9 +47,10 @@ void testBTree() {
 			swap(up, low);
 		}
 	} while (up - low > 1000 || up - low < 20);
+	up = 200; low = 1;
 	vector<Entry>num;
 	for (int i = low; i < up; ++i) {
-		num.insert(num.end(),Entry(rand(),(float)rand()/rand()));
+		num.insert(num.end(),Entry(rand()*rand()*rand()%100000000,(float)rand()/rand()));
 	}
 	vector<Entry>r;
 	cout << "insert values the fllowing:\n" << endl;
