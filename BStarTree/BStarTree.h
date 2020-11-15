@@ -2,20 +2,20 @@
 #define BSTARTREE_H_H_H 
 
 /*
-B*Ê÷
-KÊÇÂë,EÊÇ¼ÇÂ¼
-EÀàĞÍ±ØĞëÊµÏÖº¯Êı£¨K key()£©¶¨Òå
-ÓëB+Ê÷²»Í¬µÄÊÇÃ¿¸öÄÚ²¿½ÚµãÓĞÖ¸ÏòĞÖµÜµÄÖ¸Õë£¬½ÚµãÖ»ÓĞ´óÓÚceil(2/3*m)²Å·¢ÉúÉÏÒç
-mÈ¡Öµ£ºÒòºÏ²¢²Ù×÷ĞèÒªÒÆ¶¯Ë÷ÒıºÍº¢×Ó·ÖÖ§£¬ÎªÁË·½±ã£¬×îĞ¡ÒªÒÆ¶¯1,ÓĞ1/3*m>=1,ËùÒÔÉè¶¨m>=3¶ø²»ÊÇBÊ÷µÄm>=2£¬
-ÓÖÓÉÓÚÉè¶¨µÄÔ­Òò£¬ÕâÀïÎªÁË·½±ãÑ¡ÔñÁËÒÆ¶¯1/3*(m-1)Ë÷Òı£¬¼´m>=4
-Í¬Ê±ÎªÁË¼ò»¯ÏÂÒç3ĞÖµÜºÏ²¢Ê±·Ö½â²Ù×÷£¬ÖÁÉÙ±£Ö¤·Ö½â½ÚµãË÷ÒıÊı²»ÉÙÓÚ2£¬¼´ceil(2/3*(m-1))-1>=2,×îÖÕm>=6
-×¢£º¿ÉÄÜÊÇÄÄÀïÓĞÎÊÌâ£¬ÊµÏÖÁË¹¦ÄÜ£¬µ«½á¹ûÊÇm>=7
-ÊµÏÖË¼Â·£ºÍ¬B+Ê÷£¬²éÕÒÍâ²¿½Úµã,¶ÔÄÚ²¿½ÚµãºÍÍâ²¿½ÚµãÇø·Ö´¦Àí
-µ±ÉÏÒçÊ±£¬¸ù½ÚµãÒÔ4/3(m-1)ÎªÁÙ½çµã·¢Éú·ÖÁÑ£¬ÔòÇ¡ºÃ¿ÉÒÔ·ÖÁÑÎª2¸ö2/3(m-1)£¬
-½ÚµãÏÈÅĞ¶Ï×óÓÒĞÖµÜÊÇ·ñ¿ÉÒÆ¶¯£¬²»¿ÉÒÆÔòÍ¬Ò»¸öĞÖµÜ¸÷ÄÃ1/3ºÏ²¢£¬
-µ±ÏÂÒçÊ±£¬Èç¹ûÖ»ÓĞ2¸öĞÖµÜÔòºÏ²¢Îª¸ù½Úµã£¬¼´¿ÉµÃµ½4/3(m-1)¸öÂë,
-ÏÈÅĞ¶Ï×óÓÒĞÖµÜÊÇ·ñ¿É½è£¬Èç¹ûÊÇ×î×ó×ÓÊ÷»òÕß×îÓÒ×ÓÊ÷£¬ÔòÏÂÒç×óÒÆ»òÓÒÒÆ£¬·ñÔò°Ñ½Úµã·Ö½âµ½×óÓÒĞÖµÜ£¬
-µÃµ½½Ó½ü(m-1)µÄÂëÖµ£¬¶ÔÓÚÄÚ²¿½Úµã£¬»áµ¼ÖÂÄ³¸öĞÖµÜ·¢ÉúÉÏÒç£¬Ôò×öÒ»´ÎÉÏÒç´¦Àí
+B*æ ‘
+Kæ˜¯ç ,Eæ˜¯è®°å½•
+Eç±»å‹å¿…é¡»å®ç°å‡½æ•°ï¼ˆK key()ï¼‰å®šä¹‰
+ä¸B+æ ‘ä¸åŒçš„æ˜¯æ¯ä¸ªå†…éƒ¨èŠ‚ç‚¹æœ‰æŒ‡å‘å…„å¼Ÿçš„æŒ‡é’ˆï¼ŒèŠ‚ç‚¹åªæœ‰å¤§äºceil(2/3*m)æ‰å‘ç”Ÿä¸Šæº¢
+må–å€¼ï¼šå› åˆå¹¶æ“ä½œéœ€è¦ç§»åŠ¨ç´¢å¼•å’Œå­©å­åˆ†æ”¯ï¼Œä¸ºäº†æ–¹ä¾¿ï¼Œæœ€å°è¦ç§»åŠ¨1,æœ‰1/3*m>=1,æ‰€ä»¥è®¾å®šm>=3è€Œä¸æ˜¯Bæ ‘çš„m>=2ï¼Œ
+åˆç”±äºè®¾å®šçš„åŸå› ï¼Œè¿™é‡Œä¸ºäº†æ–¹ä¾¿é€‰æ‹©äº†ç§»åŠ¨1/3*(m-1)ç´¢å¼•ï¼Œå³m>=4
+åŒæ—¶ä¸ºäº†ç®€åŒ–ä¸‹æº¢3å…„å¼Ÿåˆå¹¶æ—¶åˆ†è§£æ“ä½œï¼Œè‡³å°‘ä¿è¯åˆ†è§£èŠ‚ç‚¹ç´¢å¼•æ•°ä¸å°‘äº2ï¼Œå³ceil(2/3*(m-1))-1>=2,æœ€ç»ˆm>=5
+æ³¨ï¼šå¯èƒ½æ˜¯å“ªé‡Œæœ‰é—®é¢˜ï¼Œå®ç°äº†åŠŸèƒ½ï¼Œä½†ç»“æœæ˜¯m>=7
+å®ç°æ€è·¯ï¼šåŒB+æ ‘ï¼ŒæŸ¥æ‰¾å¤–éƒ¨èŠ‚ç‚¹,å¯¹å†…éƒ¨èŠ‚ç‚¹å’Œå¤–éƒ¨èŠ‚ç‚¹åŒºåˆ†å¤„ç†
+å½“ä¸Šæº¢æ—¶ï¼Œæ ¹èŠ‚ç‚¹ä»¥4/3(m-1)ä¸ºä¸´ç•Œç‚¹å‘ç”Ÿåˆ†è£‚ï¼Œåˆ™æ°å¥½å¯ä»¥åˆ†è£‚ä¸º2ä¸ª2/3(m-1)ï¼Œ
+èŠ‚ç‚¹å…ˆåˆ¤æ–­å·¦å³å…„å¼Ÿæ˜¯å¦å¯ç§»åŠ¨ï¼Œä¸å¯ç§»åˆ™åŒä¸€ä¸ªå…„å¼Ÿå„æ‹¿1/3åˆå¹¶ï¼Œ
+å½“ä¸‹æº¢æ—¶ï¼Œå¦‚æœåªæœ‰2ä¸ªå…„å¼Ÿåˆ™åˆå¹¶ä¸ºæ ¹èŠ‚ç‚¹ï¼Œå³å¯å¾—åˆ°4/3(m-1)ä¸ªç ,
+å…ˆåˆ¤æ–­å·¦å³å…„å¼Ÿæ˜¯å¦å¯å€Ÿï¼Œå¦‚æœæ˜¯æœ€å·¦å­æ ‘æˆ–è€…æœ€å³å­æ ‘ï¼Œåˆ™ä¸‹æº¢å·¦ç§»æˆ–å³ç§»ï¼Œå¦åˆ™æŠŠèŠ‚ç‚¹åˆ†è§£åˆ°å·¦å³å…„å¼Ÿï¼Œ
+å¾—åˆ°æ¥è¿‘(m-1)çš„ç å€¼ï¼Œå¯¹äºå†…éƒ¨èŠ‚ç‚¹ï¼Œä¼šå¯¼è‡´æŸä¸ªå…„å¼Ÿå‘ç”Ÿä¸Šæº¢ï¼Œåˆ™åšä¸€æ¬¡ä¸Šæº¢å¤„ç†
 */
 
 
@@ -29,52 +29,52 @@ namespace BST {
 	class BStarTree
 	{
 	public:
-		explicit BStarTree(int order = 256);//µ±Ğ¡ÓÚ7Ê±Ä¬ÈÏÎª7½×(m>=7)
+		explicit BStarTree(int order = 256);//å½“å°äº7æ—¶é»˜è®¤ä¸º7é˜¶(m>=7)
 		~BStarTree();
 
-		int const order()const;//½×´Î
-		int const size()const;//¹æÄ£
+		int const order()const;//é˜¶æ¬¡
+		int const size()const;//è§„æ¨¡
 
-			//²Ù×÷½Ó¿Ú
-		Entry find(E const&, bool&ok)const;//²éÕÒ
-		Entry find(E const&)const;//²éÕÒ
-		bool insert(E const&);//²åÈë
-		bool remove(E const&);//É¾³ı
+			//æ“ä½œæ¥å£
+		Entry find(E const&, bool&ok)const;//æŸ¥æ‰¾
+		Entry find(E const&)const;//æŸ¥æ‰¾
+		bool insert(E const&);//æ’å…¥
+		bool remove(E const&);//åˆ é™¤
 
 		template<typename Visist>
-		void list_traversal(Visist);//±éÀú
+		void list_traversal(Visist);//éå†
 	private:
-		BAddTreeLeafNode<K, E>*  search(E const&);//²éÕÒ
-		void solveOverFlow(BAddTreeLeafNode<K, E>*);//½â¾ö²åÈëÉÏÒçÏÖÏó ²ÎÊıÎª½Úµã
-		void solveUnderFlow(BAddTreeLeafNode<K, E>*);//½â¾ö²åÈëÏÂÒçÏÖÏó ²ÎÊıÎª½Úµã
-		K updateAncestorIndex(K const&_min, K const&_max, K&_v, BAddTreeNode<K, E>*p);//¸üĞÂp×æÏÈ½ÚµãÖĞÎ¨Ò»´óÓÚ_minÍ¬Ê±Ğ¡ÓÚµÈÓÚ_maxµÄË÷ÒıÎª_v£¬·µ»Ø¾ÉË÷Òı
+		BAddTreeLeafNode<K, E>*  search(E const&);//æŸ¥æ‰¾
+		void solveOverFlow(BAddTreeLeafNode<K, E>*);//è§£å†³æ’å…¥ä¸Šæº¢ç°è±¡ å‚æ•°ä¸ºèŠ‚ç‚¹
+		void solveUnderFlow(BAddTreeLeafNode<K, E>*);//è§£å†³æ’å…¥ä¸‹æº¢ç°è±¡ å‚æ•°ä¸ºèŠ‚ç‚¹
+		K updateAncestorIndex(K const&_min, K const&_max, K&_v, BAddTreeNode<K, E>*p);//æ›´æ–°pç¥–å…ˆèŠ‚ç‚¹ä¸­å”¯ä¸€å¤§äº_minåŒæ—¶å°äºç­‰äº_maxçš„ç´¢å¼•ä¸º_vï¼Œè¿”å›æ—§ç´¢å¼•
 
 	private:
-		int m_size;//¹Ø¼üÂë×ÜÊı
-		int m_order;//B-Ê÷µÄ½×´Î,ÖÁÉÙÎª2(¼´ÍË»¯Îª¶ş²æËÑË÷Ê÷) ´´½¨Ê±Ö¸¶¨ Ò»°ã²»×öĞŞ¸Ä
-		BStarTreeNode<K, E>* m_root;//Ê÷¸ù
-		BStarTreeNode<K, E>* m_hitParentNode;//²éÕÒ·ÃÎÊÊ±ÃüÖĞ½ÚµãµÄ¸¸Ç×»òÕß´©Í¸µ×²ãºó×îºóÒ»¸ö·ÃÎÊµÄ½Úµã£¬µ±Ê÷Îª¿ÕÊ± Æä·ÃÎÊºóÎª¿Õ
-		BAddTreeLeafNode<K, E>*m_header, *m_trail;//Ë«ÏòÁ´±íÊ×Î²
+		int m_size;//å…³é”®ç æ€»æ•°
+		int m_order;//B-æ ‘çš„é˜¶æ¬¡,è‡³å°‘ä¸º2(å³é€€åŒ–ä¸ºäºŒå‰æœç´¢æ ‘) åˆ›å»ºæ—¶æŒ‡å®š ä¸€èˆ¬ä¸åšä¿®æ”¹
+		BStarTreeNode<K, E>* m_root;//æ ‘æ ¹
+		BStarTreeNode<K, E>* m_hitParentNode;//æŸ¥æ‰¾è®¿é—®æ—¶å‘½ä¸­èŠ‚ç‚¹çš„çˆ¶äº²æˆ–è€…ç©¿é€åº•å±‚åæœ€åä¸€ä¸ªè®¿é—®çš„èŠ‚ç‚¹ï¼Œå½“æ ‘ä¸ºç©ºæ—¶ å…¶è®¿é—®åä¸ºç©º
+		BAddTreeLeafNode<K, E>*m_header, *m_trail;//åŒå‘é“¾è¡¨é¦–å°¾
 	};
 	template<typename K, typename E>
 	inline BStarTree<K, E>::BStarTree(int order)
 	{
-		if (order < 7)order = 7;//Ä¬ÈÏ7½×
+		if (order < 7)order = 7;//é»˜è®¤7é˜¶
 		m_order = order;
-		//×¢£º¸ù³õÊ¼»¯ÎªÒ¶×Ó½Úµã
+		//æ³¨ï¼šæ ¹åˆå§‹åŒ–ä¸ºå¶å­èŠ‚ç‚¹
 		this->m_root = (BStarTreeNode<K, E>*)new BAddTreeLeafNode<K, E>(); m_size = 0; m_hitParentNode = nullptr;
 		m_header = new BAddTreeLeafNode<K, E>();
 		m_trail = new BAddTreeLeafNode<K, E>();
 		BAddTreeLeafNode<K, E>*_leaf = (BAddTreeLeafNode<K, E>*)(this->m_root);
-		m_header->next = _leaf; m_trail->last = _leaf;//Á´±í
+		m_header->next = _leaf; m_trail->last = _leaf;//é“¾è¡¨
 		_leaf->last = m_header; _leaf->next = m_trail;
 	}
 	template<typename K, typename E>
 	inline BStarTree<K, E>::~BStarTree()
 	{
-		if (!this->m_root)return;//Ã»ÓĞ¸ù¾Í²»É¾³ı
-		std::queue<BStarTreeNode<K, E>*>q;//ÒıÈë¸¨Öú¶ÓÁĞ°´²ã´Î±éÀúÉ¾³ı
-		q.push(this->m_root);//Ê÷¸ùÈë¶Ó
+		if (!this->m_root)return;//æ²¡æœ‰æ ¹å°±ä¸åˆ é™¤
+		std::queue<BStarTreeNode<K, E>*>q;//å¼•å…¥è¾…åŠ©é˜Ÿåˆ—æŒ‰å±‚æ¬¡éå†åˆ é™¤
+		q.push(this->m_root);//æ ‘æ ¹å…¥é˜Ÿ
 		while (!q.empty())
 		{
 			BStarTreeNode<K, E>*p = q.front();
@@ -82,15 +82,15 @@ namespace BST {
 			int count = p->child.size();
 			for (int i = 0; i < count; ++i) {
 				if (p->child[i]) {
-					q.push(static_cast<BStarTreeNode<K, E>*>(p->child[i]));//Ìí¼ÓËùÓĞº¢×ÓÈë¶Ó
+					q.push(static_cast<BStarTreeNode<K, E>*>(p->child[i]));//æ·»åŠ æ‰€æœ‰å­©å­å…¥é˜Ÿ
 				}
 			}
 			if (p->isLeaf()) {
 				BAddTreeLeafNode<K, E>*_t = (BAddTreeLeafNode<K, E>*)p;
-				delete _t, _t = nullptr;//Îö¹¹Ò¶×Ó½Úµã
+				delete _t, _t = nullptr;//ææ„å¶å­èŠ‚ç‚¹
 			}
 			else {
-				delete p, p = nullptr;//ÊÍ·ÅÃ¿¸öÄÚ²¿½Úµã
+				delete p, p = nullptr;//é‡Šæ”¾æ¯ä¸ªå†…éƒ¨èŠ‚ç‚¹
 			}
 		}
 		delete m_header, m_header = nullptr;
@@ -114,7 +114,7 @@ namespace BST {
 	{
 		K k = e.key();
 		ok = false;
-		BAddTreeLeafNode<K, E>*v = (BAddTreeLeafNode<K, E>*)(this->m_root);//cÊ½Ç¿ÖÆ×ª»»
+		BAddTreeLeafNode<K, E>*v = (BAddTreeLeafNode<K, E>*)(this->m_root);//cå¼å¼ºåˆ¶è½¬æ¢
 		while (!v->isLeaf())
 		{
 			int _s = v->key.size();
@@ -123,7 +123,7 @@ namespace BST {
 				K&tk = v->key[i];
 				if (tk > k)break;
 			}
-			v = static_cast<BAddTreeLeafNode<K, E>*>(v->child[i]);//×ªµ½ÏÂÒ»²ã
+			v = static_cast<BAddTreeLeafNode<K, E>*>(v->child[i]);//è½¬åˆ°ä¸‹ä¸€å±‚
 		}
 		if (v&&v->isLeaf()) {
 			int _s = v->key.size();
@@ -135,7 +135,7 @@ namespace BST {
 					return *(v->e[i]);
 				}
 			}
-			v = (BAddTreeLeafNode<K, E>*)(v->child[i]);//×ªµ½ÏÂÒ»²ã
+			v = (BAddTreeLeafNode<K, E>*)(v->child[i]);//è½¬åˆ°ä¸‹ä¸€å±‚
 		}
 		return Entry();
 	}
@@ -151,7 +151,7 @@ namespace BST {
 		BAddTreeLeafNode<K, E>*v = search(e);
 		if (v)
 			return false;
-		//²åÈë
+		//æ’å…¥
 		K k = e.key();
 		v = (BAddTreeLeafNode<K, E>*)(this->m_hitParentNode);
 		int _s = v->key.size();
@@ -160,13 +160,13 @@ namespace BST {
 			K&tk = v->key[i];
 			if (tk > k)break;
 		}
-		v->key.insert(v->key.begin() + i, k);//²åÈë¹Ø¼ü×Ö
-		++this->m_size;//¸üĞÂ¹æÄ£
-		v->child.insert(v->child.begin() + i + 1, nullptr);//²åÈë¿Õ·ÖÖ§
+		v->key.insert(v->key.begin() + i, k);//æ’å…¥å…³é”®å­—
+		++this->m_size;//æ›´æ–°è§„æ¨¡
+		v->child.insert(v->child.begin() + i + 1, nullptr);//æ’å…¥ç©ºåˆ†æ”¯
 		E*_e = new E();
-		*_e = std::move(e);//Ê¹ÓÃÓÒÖµÒÆ¶¯
-		v->e.insert(v->e.begin() + i, _e);//²åÈë¼ÇÂ¼
-		solveOverFlow(v);//ÉÏÒçÔò·ÖÁÑ
+		*_e = std::move(e);//ä½¿ç”¨å³å€¼ç§»åŠ¨
+		v->e.insert(v->e.begin() + i, _e);//æ’å…¥è®°å½•
+		solveOverFlow(v);//ä¸Šæº¢åˆ™åˆ†è£‚
 		return true;
 	}
 	template<typename K, typename E>
@@ -176,14 +176,14 @@ namespace BST {
 		if (!v)
 			return false;
 		int rank = 0; while (v->key[rank] != e.key())++rank;
-		//É¾³ı
-		v->key.erase(v->key.begin() + rank);//É¾³ı¹Ø¼ü×Ö
+		//åˆ é™¤
+		v->key.erase(v->key.begin() + rank);//åˆ é™¤å…³é”®å­—
 		E*_e = v->e[rank];
-		v->e.erase(v->e.begin() + rank);//É¾³ı¼ÇÂ¼
+		v->e.erase(v->e.begin() + rank);//åˆ é™¤è®°å½•
 		--this->m_size;
-		delete _e;//ÊÍ·Å¼ÇÂ¼
-		v->child.erase(v->child.begin() + rank + 1);//É¾³ı·ÖÖ§
-		solveUnderFlow(v);//¼ì²âÏÂÒç
+		delete _e;//é‡Šæ”¾è®°å½•
+		v->child.erase(v->child.begin() + rank + 1);//åˆ é™¤åˆ†æ”¯
+		solveUnderFlow(v);//æ£€æµ‹ä¸‹æº¢
 		return true;
 	}
 
@@ -193,13 +193,13 @@ namespace BST {
 		this->m_hitParentNode = nullptr;
 		K k = e.key();
 		//std::cout << "\nsearch:\n";
-		BAddTreeLeafNode<K, E>*v = (BAddTreeLeafNode<K, E>*)(this->m_root);//cÊ½Ç¿ÖÆ×ª»»
+		BAddTreeLeafNode<K, E>*v = (BAddTreeLeafNode<K, E>*)(this->m_root);//cå¼å¼ºåˆ¶è½¬æ¢
 		int x = 0;
 		while (!v->isLeaf())
 		{
 			int _s = v->key.size();
 			int i = 0;
-			//printf("²ã%d£º\n",x++);
+			//printf("å±‚%dï¼š\n",x++);
 			for (; i < _s; ++i) {
 				K&tk = v->key[i];
 				//std::cout <<tk <<" ";
@@ -207,17 +207,17 @@ namespace BST {
 			}
 			//printf("\n");
 			this->m_hitParentNode = (BStarTreeNode<K, E>*)(v);
-			v = static_cast<BAddTreeLeafNode<K, E>*>(v->child[i]);//×ªµ½ÏÂÒ»²ã
+			v = static_cast<BAddTreeLeafNode<K, E>*>(v->child[i]);//è½¬åˆ°ä¸‹ä¸€å±‚
 		}
 		if (v&&v->isLeaf()) {
-			//std::cout << "\nleaf£º\n";
+			//std::cout << "\nleafï¼š\n";
 			int _s = v->key.size();
 			int i = 0;
 			for (; i < _s; ++i) {
 				K&tk = v->key[i];
 				//std::cout <<tk <<" <-leaf- ";
 				if (tk == k) {
-					//	std::cout << tk<<" <-ÃüÖĞ- ";
+					//	std::cout << tk<<" <-å‘½ä¸­- ";
 					return v;
 				}
 				else if (tk > k)
@@ -225,7 +225,7 @@ namespace BST {
 			}
 
 			this->m_hitParentNode = (BStarTreeNode<K, E>*)(v);
-			v = (BAddTreeLeafNode<K, E>*)(v->child[i]);//×ªµ½ÏÂÒ»²ã
+			v = (BAddTreeLeafNode<K, E>*)(v->child[i]);//è½¬åˆ°ä¸‹ä¸€å±‚
 		}
 		//std::cout <<"\n ";
 		return v;
@@ -234,14 +234,14 @@ namespace BST {
 	template<typename K, typename E>
 	inline void BStarTree<K, E>::solveOverFlow(BAddTreeLeafNode<K, E>*v)
 	{
-		while (v->key.size() > m_order - 1)//ÉÏÒç
+		while (v->key.size() > m_order - 1)//ä¸Šæº¢
 		{
 			BStarTreeNode<K, E>*p = static_cast<BStarTreeNode<K, E>*>(v->parent);
-			if (!p) {//¸ù½Úµã
-				int _verge = (2.0*(m_order - 1) + 2) / 3;//ÏòÉÏÈ¡Õû
-				if (v->isLeaf()) {//Ò¶½ÚµãÇé¿ö
-					if ((_verge) * 2 <= v->key.size()) {//¸ù½Úµã°üº¬Ë÷ÒıÎª4/3*m-1ÔòÇ¡ºÃ¿ÉÒÔ·ÖÁÑÎª2¸ö2/3*mµÄ½Úµã
-						//¹¹ÔìĞÖµÜ½Úµã
+			if (!p) {//æ ¹èŠ‚ç‚¹
+				int _verge = (2.0*(m_order - 1) + 2) / 3;//å‘ä¸Šå–æ•´
+				if (v->isLeaf()) {//å¶èŠ‚ç‚¹æƒ…å†µ
+					if ((_verge) * 2 <= v->key.size()) {//æ ¹èŠ‚ç‚¹åŒ…å«ç´¢å¼•ä¸º4/3*m-1åˆ™æ°å¥½å¯ä»¥åˆ†è£‚ä¸º2ä¸ª2/3*mçš„èŠ‚ç‚¹
+						//æ„é€ å…„å¼ŸèŠ‚ç‚¹
 						BAddTreeLeafNode<K, E>* _right = new BAddTreeLeafNode<K, E>();
 						_right->key.insert(_right->key.end(), v->key.end() - _verge, v->key.end());
 						v->key.erase(v->key.end() - _verge, v->key.end());
@@ -250,17 +250,17 @@ namespace BST {
 						_right->child.insert(_right->child.end(), v->child.end() - _verge, v->child.end());
 						v->child.erase(v->child.end() - _verge, v->child.end());
 						this->m_root = new BStarTreeNode<K, E>();
-						this->m_root->child.insert(this->m_root->child.end(), static_cast<BAddTreeNode<K, E>*>(_right));//Ìí¼ÓĞÖµÜ·ÖÖ§
+						this->m_root->child.insert(this->m_root->child.end(), static_cast<BAddTreeNode<K, E>*>(_right));//æ·»åŠ å…„å¼Ÿåˆ†æ”¯
 						this->m_root->child[0] = static_cast<BAddTreeNode<K, E>*>(v);
-						v->parent = this->m_root; _right->parent = this->m_root;//ÏòÉÏÁª½Ó
-						this->m_root->key.insert(this->m_root->key.end(), _right->key[0]);//½¨Á¢Ë÷Òı
+						v->parent = this->m_root; _right->parent = this->m_root;//å‘ä¸Šè”æ¥
+						this->m_root->key.insert(this->m_root->key.end(), _right->key[0]);//å»ºç«‹ç´¢å¼•
 						v->next->last = _right; _right->next = v->next;
 						v->next = _right; _right->last = v;
 					}
 				}
 				else {
-					if ((_verge) * 2 < v->key.size()) {//¸ù½Úµã°üº¬Ë÷ÒıÎª4/3*mÔòÇ¡ºÃ¿ÉÒÔ·ÖÁÑÎª2¸ö2/3*mµÄ½Úµã
-						//¹¹ÔìĞÖµÜ½Úµã
+					if ((_verge) * 2 < v->key.size()) {//æ ¹èŠ‚ç‚¹åŒ…å«ç´¢å¼•ä¸º4/3*måˆ™æ°å¥½å¯ä»¥åˆ†è£‚ä¸º2ä¸ª2/3*mçš„èŠ‚ç‚¹
+						//æ„é€ å…„å¼ŸèŠ‚ç‚¹
 						BStarTreeNode<K, E>*tv = (BStarTreeNode<K, E>*)v;
 						BStarTreeNode<K, E>* _right = new BStarTreeNode<K, E>();
 						_right->key.insert(_right->key.end(), tv->key.end() - _verge, tv->key.end());
@@ -270,15 +270,15 @@ namespace BST {
 						_right->child[0] = *--tv->child.end();
 						tv->child.erase(--tv->child.end());
 						this->m_root = new BStarTreeNode<K, E>();
-						this->m_root->child.insert(this->m_root->child.end(), static_cast<BAddTreeNode<K, E>*>(_right));//Ìí¼ÓĞÖµÜ·ÖÖ§
+						this->m_root->child.insert(this->m_root->child.end(), static_cast<BAddTreeNode<K, E>*>(_right));//æ·»åŠ å…„å¼Ÿåˆ†æ”¯
 						this->m_root->child[0] = static_cast<BAddTreeNode<K, E>*>(tv);
-						tv->parent = this->m_root; _right->parent = this->m_root;//ÏòÉÏÁª½Ó
-						this->m_root->key.insert(this->m_root->key.end(), *--tv->key.end());//½¨Á¢Ë÷Òı
+						tv->parent = this->m_root; _right->parent = this->m_root;//å‘ä¸Šè”æ¥
+						this->m_root->key.insert(this->m_root->key.end(), *--tv->key.end());//å»ºç«‹ç´¢å¼•
 						tv->key.erase(--tv->key.end());
 						{
 							int _s = _right->child.size();
 							for (int i = 0; i < _s; ++i)
-								_right->child[i]->parent = static_cast<BAddTreeNode<K, E>*>(_right);//ÏòÏÂÁª½Ó
+								_right->child[i]->parent = static_cast<BAddTreeNode<K, E>*>(_right);//å‘ä¸‹è”æ¥
 						}
 						if (tv->next)tv->next->last = _right;
 						_right->next = tv->next;
@@ -288,11 +288,11 @@ namespace BST {
 				return;
 			}
 
-			if (v->isLeaf()) {//Ò¶½Úµã
-				if (v->last != m_header) {//´æÔÚ×óĞÖµÜ
+			if (v->isLeaf()) {//å¶èŠ‚ç‚¹
+				if (v->last != m_header) {//å­˜åœ¨å·¦å…„å¼Ÿ
 					BAddTreeLeafNode<K, E>*_brother = v->last;
-					if (_brother->child.size() < m_order) {//¿ÉÒÆ¶¯
-						updateAncestorIndex(_brother->key[0], v->key[0], *(v->key.begin() + 1), static_cast<BAddTreeNode<K, E>*>(v));//¸üĞÂ×æÏÈË÷Òı
+					if (_brother->child.size() < m_order) {//å¯ç§»åŠ¨
+						updateAncestorIndex(_brother->key[0], v->key[0], *(v->key.begin() + 1), static_cast<BAddTreeNode<K, E>*>(v));//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						_brother->key.insert(_brother->key.end(), *v->key.begin());;
 						_brother->child.insert(_brother->child.end(), *v->child.begin());
 						_brother->e.insert(_brother->e.end(), *v->e.begin());
@@ -300,10 +300,10 @@ namespace BST {
 						return;
 					}
 				}
-				if (v->next != m_trail) {//´æÔÚÓÒĞÖµÜ
+				if (v->next != m_trail) {//å­˜åœ¨å³å…„å¼Ÿ
 					BAddTreeLeafNode<K, E>*_brother = v->next;
-					if (_brother->child.size() < m_order) {//¿ÉÒÆ¶¯
-						updateAncestorIndex(v->key[0], _brother->key[0], *(--v->key.end()), static_cast<BAddTreeNode<K, E>*>(_brother));//¸üĞÂ×æÏÈË÷Òı
+					if (_brother->child.size() < m_order) {//å¯ç§»åŠ¨
+						updateAncestorIndex(v->key[0], _brother->key[0], *(--v->key.end()), static_cast<BAddTreeNode<K, E>*>(_brother));//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						_brother->key.insert(_brother->key.begin(), *--v->key.end());;
 						_brother->child.insert(_brother->child.begin(), *--v->child.end());
 						_brother->e.insert(_brother->e.begin(), *--v->e.end());
@@ -312,105 +312,105 @@ namespace BST {
 					}
 				}
 				int _mc = 1.0 / 3 * (m_order - 1);
-				if (v->last != m_header) {//´æÔÚ×óĞÖµÜ ²»¿É½èÔò¸÷ÄÃ1/3m³öÀ´ºÏ²¢µÃµ½2/3*m 
+				if (v->last != m_header) {//å­˜åœ¨å·¦å…„å¼Ÿ ä¸å¯å€Ÿåˆ™å„æ‹¿1/3må‡ºæ¥åˆå¹¶å¾—åˆ°2/3*m 
 					BAddTreeLeafNode<K, E>*_brother = v->last;
 					BAddTreeLeafNode<K, E>*_nbrother = new BAddTreeLeafNode<K, E>();
 
 					K ks = _brother->key[0]; K ke = v->key[0];
-					//¼ÇÂ¼ÒÆ¶¯
+					//è®°å½•ç§»åŠ¨
 					_nbrother->e.insert(_nbrother->e.end(), _brother->e.end() - _mc, _brother->e.end());
 					_nbrother->e.insert(_nbrother->e.end(), v->e.begin(), v->e.begin() + _mc + 1);
 					_brother->e.erase(_brother->e.end() - _mc, _brother->e.end()); v->e.erase(v->e.begin(), v->e.begin() + _mc + 1);
-					//ÂëÒÆ¶¯
+					//ç ç§»åŠ¨
 					_nbrother->key.insert(_nbrother->key.end(), _brother->key.end() - _mc, _brother->key.end());
 					_nbrother->key.insert(_nbrother->key.end(), v->key.begin(), v->key.begin() + _mc + 1);
 					_brother->key.erase(_brother->key.end() - _mc, _brother->key.end()); v->key.erase(v->key.begin(), v->key.begin() + _mc + 1);
-					//ÒÆ¶¯·ÖÖ§
+					//ç§»åŠ¨åˆ†æ”¯
 					_nbrother->child.insert(_nbrother->child.end(), _brother->child.end() - _mc, _brother->child.end());
 					_nbrother->child.insert(_nbrother->child.end(), v->child.begin(), v->child.begin() + _mc + 1);
 					_brother->child.erase(_brother->child.end() - _mc, _brother->child.end()); v->child.erase(v->child.begin(), v->child.begin() + _mc + 1);
-					updateAncestorIndex(ks, ke, *v->key.begin(), static_cast<BAddTreeNode<K, E>*>(v));//¸üĞÂÎªv×îĞ¡Öµ£¬ÒòÏò×ó¸¸½ÚµãÖĞ½ÓÈë
+					updateAncestorIndex(ks, ke, *v->key.begin(), static_cast<BAddTreeNode<K, E>*>(v));//æ›´æ–°ä¸ºvæœ€å°å€¼ï¼Œå› å‘å·¦çˆ¶èŠ‚ç‚¹ä¸­æ¥å…¥
 					{
 						int rank = 0; while (_brother->parent->child[rank] != static_cast<BAddTreeNode<K, E>*>(_brother))++rank;
 						_brother->parent->key.insert(_brother->parent->key.begin() + rank, _nbrother->key[0]);
 						_brother->parent->child.insert(_brother->parent->child.begin() + rank + 1, static_cast<BAddTreeNode<K, E>*>(_nbrother));
 					}
-					_nbrother->parent = _brother->parent;//ÏòÉÏÁª½Ó
+					_nbrother->parent = _brother->parent;//å‘ä¸Šè”æ¥
 					_brother->next = _nbrother; _nbrother->next = v;
 					v->last = _nbrother; _nbrother->last = _brother;
 
 					v = static_cast<BAddTreeLeafNode<K, E>*>(_nbrother->parent);
-					continue;//ÉÏÒç´«²¥
+					continue;//ä¸Šæº¢ä¼ æ’­
 				}
-				else {//´æÔÚÓÒĞÖµÜ ²»¿É½èÔò¸÷ÄÃ1/3m³öÀ´ºÏ²¢µÃµ½2/3*m 
+				else {//å­˜åœ¨å³å…„å¼Ÿ ä¸å¯å€Ÿåˆ™å„æ‹¿1/3må‡ºæ¥åˆå¹¶å¾—åˆ°2/3*m 
 					BAddTreeLeafNode<K, E>*_brother = v->next;
 					BAddTreeLeafNode<K, E>*_nbrother = new BAddTreeLeafNode<K, E>();
 
 					K ks = v->key[1]; K ke = _brother->key[1];
-					//¼ÇÂ¼ÒÆ¶¯
+					//è®°å½•ç§»åŠ¨
 					_nbrother->e.insert(_nbrother->e.end(), v->e.end() - _mc - 1, v->e.end());
 					_nbrother->e.insert(_nbrother->e.end(), _brother->e.begin(), _brother->e.begin() + _mc);
 					_brother->e.erase(_brother->e.begin(), _brother->e.begin() + _mc); v->e.erase(v->e.end() - _mc - 1, v->e.end());
-					//ÂëÒÆ¶¯
+					//ç ç§»åŠ¨
 					_nbrother->key.insert(_nbrother->key.end(), v->key.end() - _mc - 1, v->key.end());
 					_nbrother->key.insert(_nbrother->key.end(), _brother->key.begin(), _brother->key.begin() + _mc);
 					_brother->key.erase(_brother->key.begin(), _brother->key.begin() + _mc); v->key.erase(v->key.end() - _mc - 1, v->key.end());
-					//ÒÆ¶¯·ÖÖ§
+					//ç§»åŠ¨åˆ†æ”¯
 					_nbrother->child.insert(_nbrother->child.end(), v->child.end() - _mc - 1, v->child.end());
 					_nbrother->child.insert(_nbrother->child.end(), _brother->child.begin(), _brother->child.begin() + _mc);
 					_brother->child.erase(_brother->child.begin(), _brother->child.begin() + _mc); v->child.erase(v->child.end() - _mc - 1, v->child.end());
-					updateAncestorIndex(ks, ke, *_nbrother->key.begin(), static_cast<BAddTreeNode<K, E>*>(_brother));//¸üĞÂÎª_nbrother×îĞ¡Öµ£¬ÒòÏòÓÒ¸¸½ÚµãÖĞ½ÓÈë
+					updateAncestorIndex(ks, ke, *_nbrother->key.begin(), static_cast<BAddTreeNode<K, E>*>(_brother));//æ›´æ–°ä¸º_nbrotheræœ€å°å€¼ï¼Œå› å‘å³çˆ¶èŠ‚ç‚¹ä¸­æ¥å…¥
 					{
 						int rank = 0; while (_brother->parent->child[rank] != static_cast<BAddTreeNode<K, E>*>(_brother))++rank;
 						_brother->parent->key.insert(_brother->parent->key.begin() + rank, _brother->key[0]);
 						_brother->parent->child.insert(_brother->parent->child.begin() + rank, static_cast<BAddTreeNode<K, E>*>(_nbrother));
 					}
-					_nbrother->parent = _brother->parent;//ÏòÉÏÁª½Ó
+					_nbrother->parent = _brother->parent;//å‘ä¸Šè”æ¥
 					v->next = _nbrother; _nbrother->next = _brother;
 					_brother->last = _nbrother; _nbrother->last = v;
 
 					v = static_cast<BAddTreeLeafNode<K, E>*>(_nbrother->parent);
-					continue;//ÉÏÒç´«²¥
+					continue;//ä¸Šæº¢ä¼ æ’­
 				}
 			}
-			else {//ÄÚ²¿½Úµã
-				BStarTreeNode<K, E>*tv = (BStarTreeNode<K, E>*)v;//×ªÄÚ²¿½ÚµãÀàĞÍ
-				if (tv->last) {//´æÔÚ×óĞÖµÜ
+			else {//å†…éƒ¨èŠ‚ç‚¹
+				BStarTreeNode<K, E>*tv = (BStarTreeNode<K, E>*)v;//è½¬å†…éƒ¨èŠ‚ç‚¹ç±»å‹
+				if (tv->last) {//å­˜åœ¨å·¦å…„å¼Ÿ
 					BStarTreeNode<K, E>*_brother = tv->last;
-					if (_brother->child.size() < m_order) {//¿ÉÒÆ¶¯
-						K k = updateAncestorIndex(_brother->key[0], tv->key[0], tv->key[0], static_cast<BAddTreeNode<K, E>*>(tv));//¸üĞÂ×æÏÈË÷Òı
-						_brother->key.insert(_brother->key.end(), k);;//ÏÂÀ­×æÏÈË÷Òı
+					if (_brother->child.size() < m_order) {//å¯ç§»åŠ¨
+						K k = updateAncestorIndex(_brother->key[0], tv->key[0], tv->key[0], static_cast<BAddTreeNode<K, E>*>(tv));//æ›´æ–°ç¥–å…ˆç´¢å¼•
+						_brother->key.insert(_brother->key.end(), k);;//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
 						_brother->child.insert(_brother->child.end(), *tv->child.begin());
 						tv->key.erase(tv->key.begin()); tv->child.erase(tv->child.begin());
-						//ÏòÉÏÁª½Ó
+						//å‘ä¸Šè”æ¥
 						_brother->child[_brother->child.size() - 1]->parent = _brother;
 						return;
 					}
 				}
-				if (tv->next) {//´æÔÚÓÒĞÖµÜ
+				if (tv->next) {//å­˜åœ¨å³å…„å¼Ÿ
 					BStarTreeNode<K, E>*_brother = tv->next;
-					if (_brother->child.size() < m_order) {//¿ÉÒÆ¶¯
-						K k = updateAncestorIndex(tv->key[0], _brother->key[0], *(--tv->key.end()), static_cast<BAddTreeNode<K, E>*>(_brother));//¸üĞÂ×æÏÈË÷Òı
-						_brother->key.insert(_brother->key.begin(), k);;//ÏÂÀ­×æÏÈË÷Òı
+					if (_brother->child.size() < m_order) {//å¯ç§»åŠ¨
+						K k = updateAncestorIndex(tv->key[0], _brother->key[0], *(--tv->key.end()), static_cast<BAddTreeNode<K, E>*>(_brother));//æ›´æ–°ç¥–å…ˆç´¢å¼•
+						_brother->key.insert(_brother->key.begin(), k);;//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
 						_brother->child.insert(_brother->child.begin(), *--tv->child.end());
 						tv->key.erase(--tv->key.end()); tv->child.erase(--tv->child.end());
-						//ÏòÉÏÁª½Ó
+						//å‘ä¸Šè”æ¥
 						_brother->child[0]->parent = _brother;
 						return;
 					}
 				}
 				int _mc = 1.0 / 3 * (m_order - 1);
-				if (tv->last) {//´æÔÚ×óĞÖµÜ ²»¿ÉÒÆÔò¸÷ÄÃ1/3m³öÀ´ºÏ²¢µÃµ½2/3*m 
+				if (tv->last) {//å­˜åœ¨å·¦å…„å¼Ÿ ä¸å¯ç§»åˆ™å„æ‹¿1/3må‡ºæ¥åˆå¹¶å¾—åˆ°2/3*m 
 					BStarTreeNode<K, E>*_brother = tv->last;
 					BStarTreeNode<K, E>*_nbrother = new BStarTreeNode<K, E>();
 					K ks = _brother->key[0]; K ke = tv->key[0];
-					K k = updateAncestorIndex(ks, ke, *(tv->key.begin() + _mc), static_cast<BAddTreeNode<K, E>*>(tv));//Ñ¡ÔñÏò×ó¸¸½ÚµãÖĞ½ÓÈë
-					//ÂëÒÆ¶¯
+					K k = updateAncestorIndex(ks, ke, *(tv->key.begin() + _mc), static_cast<BAddTreeNode<K, E>*>(tv));//é€‰æ‹©å‘å·¦çˆ¶èŠ‚ç‚¹ä¸­æ¥å…¥
+					//ç ç§»åŠ¨
 					_nbrother->key.insert(_nbrother->key.end(), _brother->key.end() - _mc + 1, _brother->key.end());
-					_nbrother->key.insert(_nbrother->key.end(), k);//ÏÂÀ­×æÏÈË÷Òı
+					_nbrother->key.insert(_nbrother->key.end(), k);//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
 					_nbrother->key.insert(_nbrother->key.end(), tv->key.begin(), tv->key.begin() + _mc);
 					_brother->key.erase(_brother->key.end() - _mc + 1, _brother->key.end()); tv->key.erase(tv->key.begin(), tv->key.begin() + _mc + 1);
-					//ÒÆ¶¯·ÖÖ§
+					//ç§»åŠ¨åˆ†æ”¯
 					_nbrother->child.insert(_nbrother->child.end() - 1, _brother->child.end() - _mc, _brother->child.end());
 					_nbrother->child.insert(_nbrother->child.end() - 1, tv->child.begin(), tv->child.begin() + _mc);
 					_brother->child.erase(_brother->child.end() - _mc, _brother->child.end()); tv->child.erase(tv->child.begin(), tv->child.begin() + _mc);
@@ -422,10 +422,10 @@ namespace BST {
 						_brother->key.erase(--_brother->key.end());
 						_brother->parent->child.insert(_brother->parent->child.begin() + rank + 1, static_cast<BAddTreeNode<K, E>*>(_nbrother));
 					}
-					_nbrother->parent = _brother->parent;//ÏòÉÏÁª½Ó
+					_nbrother->parent = _brother->parent;//å‘ä¸Šè”æ¥
 					_brother->next = _nbrother; _nbrother->next = tv;
 					tv->last = _nbrother; _nbrother->last = _brother;
-					//ÏòÏÂÁª½Ó
+					//å‘ä¸‹è”æ¥
 					{
 						int _s = _nbrother->child.size();
 						for (int i = 0; i < _s; ++i) {
@@ -433,20 +433,20 @@ namespace BST {
 						}
 					}
 					v = static_cast<BAddTreeLeafNode<K, E>*>(_nbrother->parent);
-					continue;//ÉÏÒç´«²¥
+					continue;//ä¸Šæº¢ä¼ æ’­
 				}
-				else {//´æÔÚÓÒĞÖµÜ ²»¿ÉÒÆ¶¯Ôò¸÷ÄÃ1/3m³öÀ´ºÏ²¢µÃµ½2/3*m 
+				else {//å­˜åœ¨å³å…„å¼Ÿ ä¸å¯ç§»åŠ¨åˆ™å„æ‹¿1/3må‡ºæ¥åˆå¹¶å¾—åˆ°2/3*m 
 					BStarTreeNode<K, E>*_brother = tv->next;
 					BStarTreeNode<K, E>*_nbrother = new BStarTreeNode<K, E>();
 
 					K ks = tv->key[0]; K ke = _brother->key[0];
-					K k = updateAncestorIndex(ks, ke, *(tv->key.end() - _mc - 1), static_cast<BAddTreeNode<K, E>*>(_brother));//Ñ¡ÔñÏòÓÒ¸¸½ÚµãÖĞ½ÓÈë
-					//ÂëÒÆ¶¯
+					K k = updateAncestorIndex(ks, ke, *(tv->key.end() - _mc - 1), static_cast<BAddTreeNode<K, E>*>(_brother));//é€‰æ‹©å‘å³çˆ¶èŠ‚ç‚¹ä¸­æ¥å…¥
+					//ç ç§»åŠ¨
 					_nbrother->key.insert(_nbrother->key.end(), tv->key.end() - _mc, tv->key.end());
-					_nbrother->key.insert(_nbrother->key.end(), k);//ÏÂÀ­×æÏÈË÷Òı
-					_nbrother->key.insert(_nbrother->key.end(), _brother->key.begin(), _brother->key.begin() + _mc - 1);//ÒòÎª¸ÕÂú£¬ËùÒÔÓÃ×æÏÈË÷ÒıÖµ´úÌæÒ»¸ö²åÈëÖµ£¬ÔÚ°Ñ×îĞ¡µÄ×ªÎª¸¸½ÚµãµÄË÷Òı£¬¼´·ûºÏË÷Òı½á¹¹
+					_nbrother->key.insert(_nbrother->key.end(), k);//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
+					_nbrother->key.insert(_nbrother->key.end(), _brother->key.begin(), _brother->key.begin() + _mc - 1);//å› ä¸ºåˆšæ»¡ï¼Œæ‰€ä»¥ç”¨ç¥–å…ˆç´¢å¼•å€¼ä»£æ›¿ä¸€ä¸ªæ’å…¥å€¼ï¼Œåœ¨æŠŠæœ€å°çš„è½¬ä¸ºçˆ¶èŠ‚ç‚¹çš„ç´¢å¼•ï¼Œå³ç¬¦åˆç´¢å¼•ç»“æ„
 					_brother->key.erase(_brother->key.begin(), _brother->key.begin() + _mc - 1); tv->key.erase(tv->key.end() - _mc - 1, v->key.end());
-					//ÒÆ¶¯·ÖÖ§
+					//ç§»åŠ¨åˆ†æ”¯
 					_nbrother->child.insert(_nbrother->child.end(), tv->child.end() - _mc, tv->child.end());
 					_nbrother->child.insert(_nbrother->child.end(), _brother->child.begin(), _brother->child.begin() + _mc);
 					_brother->child.erase(_brother->child.begin(), _brother->child.begin() + _mc); tv->child.erase(tv->child.end() - _mc, v->child.end());
@@ -461,10 +461,10 @@ namespace BST {
 						_brother->key.erase(_brother->key.begin());
 						_brother->parent->child.insert(_brother->parent->child.begin() + rank, static_cast<BAddTreeNode<K, E>*>(_nbrother));
 					}
-					_nbrother->parent = _brother->parent;//ÏòÉÏÁª½Ó
+					_nbrother->parent = _brother->parent;//å‘ä¸Šè”æ¥
 					tv->next = _nbrother; _nbrother->next = _brother;
 					_brother->last = _nbrother; _nbrother->last = tv;
-					//ÏòÏÂÁª½Ó
+					//å‘ä¸‹è”æ¥
 					{
 						int _s = _nbrother->child.size();
 						for (int i = 0; i < _s; ++i) {
@@ -472,7 +472,7 @@ namespace BST {
 						}
 					}
 					v = static_cast<BAddTreeLeafNode<K, E>*>(_nbrother->parent);
-					continue;//ÉÏÒç´«²¥
+					continue;//ä¸Šæº¢ä¼ æ’­
 				}
 			}
 		}
@@ -480,114 +480,114 @@ namespace BST {
 	template<typename K, typename E>
 	inline void BStarTree<K, E>::solveUnderFlow(BAddTreeLeafNode<K, E>*v)
 	{
-		int _verge = (2.0*(m_order - 1) + 2) / 3;//ÏòÉÏÈ¡Õû
-		while (v->key.size() < _verge)//ÏÂÒç
+		int _verge = (2.0*(m_order - 1) + 2) / 3;//å‘ä¸Šå–æ•´
+		while (v->key.size() < _verge)//ä¸‹æº¢
 		{
 			BStarTreeNode<K, E>*p = static_cast<BStarTreeNode<K, E>*>(v->parent);
-			if (!p) {//¸ù½Úµã ·¶Î§0-4/3*(m-1)¸ö¹Ø¼ü×Ö
+			if (!p) {//æ ¹èŠ‚ç‚¹ èŒƒå›´0-4/3*(m-1)ä¸ªå…³é”®å­—
 				return;
 			}
-			if (v->isLeaf()) {//Ò¶×Ó½Úµã
-				if (v->last != m_header && v->last->key.size() > _verge) {//×ó¿É½è
+			if (v->isLeaf()) {//å¶å­èŠ‚ç‚¹
+				if (v->last != m_header && v->last->key.size() > _verge) {//å·¦å¯å€Ÿ
 					BAddTreeLeafNode<K, E>*_last = v->last;
 					v->e.insert(v->e.begin(), *--_last->e.end());
 					_last->e.erase(--_last->e.end());
 					auto it = --_last->key.end();
-					updateAncestorIndex(_last->key[0], v->key[0], *it, v);//¸üĞÂ×æÏÈË÷Òı
+					updateAncestorIndex(_last->key[0], v->key[0], *it, v);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 					v->key.insert(v->key.begin(), *it);
 					_last->key.erase(it);
 					v->child.insert(v->child.begin(), *--_last->child.end());
 					_last->child.erase(--_last->child.end());
 					return;
 				}
-				if (v->next != m_trail && v->next->key.size() > _verge) {//ÓÒ¿É½è
+				if (v->next != m_trail && v->next->key.size() > _verge) {//å³å¯å€Ÿ
 					BAddTreeLeafNode<K, E>*_next = v->next;
 					v->e.insert(v->e.end(), *_next->e.begin());
 					_next->e.erase(_next->e.begin());
 					v->key.insert(v->key.end(), *_next->key.begin());
 					_next->key.erase(_next->key.begin());
-					updateAncestorIndex(v->key[0], *--v->key.end(), _next->key[0], _next);//¸üĞÂ×æÏÈË÷Òı
+					updateAncestorIndex(v->key[0], *--v->key.end(), _next->key[0], _next);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 					v->child.insert(v->child.end(), *_next->child.begin());
 					_next->child.erase(_next->child.begin());
 					return;
 				}
-				if (v->last == m_header) {//×óĞÖµÜ²»´æÔÚ ÓÒĞÖµÜ²»¿É½è
+				if (v->last == m_header) {//å·¦å…„å¼Ÿä¸å­˜åœ¨ å³å…„å¼Ÿä¸å¯å€Ÿ
 					BAddTreeLeafNode<K, E>*_next = v->next;
-					if (v->next->next != m_trail) {//´æÔÚÓÒĞÖµÜµÄÓÒĞÖµÜ ÔòÎÊÌâÓÒÒÆ
+					if (v->next->next != m_trail) {//å­˜åœ¨å³å…„å¼Ÿçš„å³å…„å¼Ÿ åˆ™é—®é¢˜å³ç§»
 						v->e.insert(v->e.end(), *_next->e.begin());
 						_next->e.erase(_next->e.begin());
 						v->key.insert(v->key.end(), *_next->key.begin());
 						_next->key.erase(_next->key.begin());
-						updateAncestorIndex(v->key[0], *--v->key.end(), _next->key[0], _next);//¸üĞÂ×æÏÈË÷Òı
+						updateAncestorIndex(v->key[0], *--v->key.end(), _next->key[0], _next);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						v->child.insert(v->child.end(), *_next->child.begin());
 						_next->child.erase(_next->child.begin());
-						v = _next;//ÎÊÌâÓÒÒÆ
-						continue;//ÏÂÒç´«²¥
+						v = _next;//é—®é¢˜å³ç§»
+						continue;//ä¸‹æº¢ä¼ æ’­
 					}
-					else {//Ö»ÓĞ2¸öĞÖµÜ ÔòºÏ²¢ÎªÒ»¸ö¸ù½Úµã
+					else {//åªæœ‰2ä¸ªå…„å¼Ÿ åˆ™åˆå¹¶ä¸ºä¸€ä¸ªæ ¹èŠ‚ç‚¹
 						_next->e.insert(_next->e.begin(), v->e.begin(), v->e.end());
-						v->e.resize(0);//°²È«Îö¹¹
+						v->e.resize(0);//å®‰å…¨ææ„
 						_next->key.insert(_next->key.begin(), v->key.begin(), v->key.end());
 						_next->child.insert(_next->child.begin(), v->child.begin(), --v->child.end());
 						BStarTreeNode<K, E>*_r = this->m_root;
 						delete _r;
-						this->m_root = (BStarTreeNode<K, E>*) _next;//ĞÂ¸ùÈ·ÈÏ
-						this->m_root->parent = nullptr;//¸üĞÂ¸ùĞÔÖÊ
+						this->m_root = (BStarTreeNode<K, E>*) _next;//æ–°æ ¹ç¡®è®¤
+						this->m_root->parent = nullptr;//æ›´æ–°æ ¹æ€§è´¨
 						m_header->next = _next; _next->next = m_trail;
-						m_trail->last = _next; _next->last = m_header;//Î¬»¤Á´±í
+						m_trail->last = _next; _next->last = m_header;//ç»´æŠ¤é“¾è¡¨
 						delete v, v = nullptr;
 						return;
 					}
 				}
-				if (v->next == m_trail) {//ÓÒĞÖµÜ²»´æÔÚ ×óĞÖµÜ²»¿É½è 
+				if (v->next == m_trail) {//å³å…„å¼Ÿä¸å­˜åœ¨ å·¦å…„å¼Ÿä¸å¯å€Ÿ 
 					BAddTreeLeafNode<K, E>*_last = v->last;
-					if (v->last->last != m_header) {//´æÔÚ×óĞÖµÜµÄ×óĞÖµÜ ÔòÎÊÌâ×óÒÆ
+					if (v->last->last != m_header) {//å­˜åœ¨å·¦å…„å¼Ÿçš„å·¦å…„å¼Ÿ åˆ™é—®é¢˜å·¦ç§»
 						v->e.insert(v->e.begin(), *--_last->e.end());
 						_last->e.erase(--_last->e.end());
 						auto it = --_last->key.end();
-						updateAncestorIndex(_last->key[0], v->key[0], *it, v);//¸üĞÂ×æÏÈË÷Òı
+						updateAncestorIndex(_last->key[0], v->key[0], *it, v);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						v->key.insert(v->key.begin(), *it);
 						_last->key.erase(it);
 						v->child.insert(v->child.begin(), *--_last->child.end());
 						_last->child.erase(--_last->child.end());
-						v = _last;//ÎÊÌâ×óÒÆ
-						continue;//ÏÂÒç´«²¥
+						v = _last;//é—®é¢˜å·¦ç§»
+						continue;//ä¸‹æº¢ä¼ æ’­
 					}
-					else {//Ö»ÓĞ2¸öĞÖµÜ ÔòºÏ²¢ÎªÒ»¸ö¸ù½Úµã
+					else {//åªæœ‰2ä¸ªå…„å¼Ÿ åˆ™åˆå¹¶ä¸ºä¸€ä¸ªæ ¹èŠ‚ç‚¹
 						_last->e.insert(_last->e.end(), v->e.begin(), v->e.end());
-						v->e.resize(0);//°²È«Îö¹¹
+						v->e.resize(0);//å®‰å…¨ææ„
 						_last->key.insert(_last->key.end(), v->key.begin(), v->key.end());
 						_last->child.insert(_last->child.end(), v->child.begin(), --v->child.end());
 						BStarTreeNode<K, E>*_r = this->m_root;
 						delete _r;
-						this->m_root = (BStarTreeNode<K, E>*)_last;//ĞÂ¸ùÈ·ÈÏ
-						this->m_root->parent = nullptr;//¸üĞÂ¸ùĞÔÖÊ
+						this->m_root = (BStarTreeNode<K, E>*)_last;//æ–°æ ¹ç¡®è®¤
+						this->m_root->parent = nullptr;//æ›´æ–°æ ¹æ€§è´¨
 						m_header->next = _last; _last->next = m_trail;
-						m_trail->last = _last; _last->last = m_header;//Î¬»¤Á´±í
+						m_trail->last = _last; _last->last = m_header;//ç»´æŠ¤é“¾è¡¨
 						delete v, v = nullptr;
 						return;
 					}
 				}
-				//×óÓÒĞÖµÜ¶¼²»¿É½è£¬Ôò°Ñv·Ö½âµ½×óÓÒĞÖµÜºÏ²¢Îª2¸öĞÖµÜ ÕâÀïÏÈÏò×óºÏ²¢
+				//å·¦å³å…„å¼Ÿéƒ½ä¸å¯å€Ÿï¼Œåˆ™æŠŠvåˆ†è§£åˆ°å·¦å³å…„å¼Ÿåˆå¹¶ä¸º2ä¸ªå…„å¼Ÿ è¿™é‡Œå…ˆå‘å·¦åˆå¹¶
 				{
-					//Íù×óºÏ²¢
+					//å¾€å·¦åˆå¹¶
 					{
-						int _mc = v->key.size() - (v->key.size()) / 2;//Íù×óÒÆµÄ¸öÊı
+						int _mc = v->key.size() - (v->key.size()) / 2;//å¾€å·¦ç§»çš„ä¸ªæ•°
 						BAddTreeLeafNode<K, E>*_last = v->last;
 						_last->e.insert(_last->e.end(), v->e.begin(), v->e.begin() + _mc);
 						v->e.erase(v->e.begin(), v->e.begin() + _mc);
-						updateAncestorIndex(_last->key[0], v->key[0], *(v->key.begin() + _mc), v);//¸üĞÂ×æÏÈË÷Òı
+						updateAncestorIndex(_last->key[0], v->key[0], *(v->key.begin() + _mc), v);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						_last->key.insert(_last->key.end(), v->key.begin(), v->key.begin() + _mc);
 						v->key.erase(v->key.begin(), v->key.begin() + _mc);
 						_last->child.insert(_last->child.end(), v->child.begin(), v->child.begin() + _mc);
 						v->child.erase(v->child.begin(), v->child.begin() + _mc);
 					}
-					//ÍùÓÒºÏ²¢
+					//å¾€å³åˆå¹¶
 					{
 						BAddTreeLeafNode<K, E>*_next = v->next;
 						_next->e.insert(_next->e.begin(), v->e.begin(), v->e.end());
 						v->e.erase(v->e.begin(), v->e.end());
-						updateAncestorIndex(v->key[0], _next->key[0], v->key[0], _next);//¸üĞÂ×æÏÈË÷Òı
+						updateAncestorIndex(v->key[0], _next->key[0], v->key[0], _next);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						_next->key.insert(_next->key.begin(), v->key.begin(), v->key.end());
 						v->key.erase(v->key.begin(), v->key.end());
 						_next->child.insert(_next->child.begin(), v->child.begin(), --v->child.end());
@@ -600,113 +600,113 @@ namespace BST {
 						v->parent->key.erase(v->parent->key.begin() + rank - 1);
 					}
 					v->parent->child.erase(v->parent->child.begin() + rank);
-					v->last->next = v->next; v->next->last = v->last;//Î¬»¤Á´±í
+					v->last->next = v->next; v->next->last = v->last;//ç»´æŠ¤é“¾è¡¨
 					delete v, v = nullptr;
 					v = (BAddTreeLeafNode<K, E>*)p;
-					continue;//ÏÂÒç´«²¥
+					continue;//ä¸‹æº¢ä¼ æ’­
 					return;
 				}
 			}
-			else {//ÄÚ²¿½Úµã
+			else {//å†…éƒ¨èŠ‚ç‚¹
 				BStarTreeNode<K, E>*tv = (BStarTreeNode<K, E>*)v;
-				if (tv->last  && tv->last->key.size() > _verge) {//×ó¿É½è
+				if (tv->last  && tv->last->key.size() > _verge) {//å·¦å¯å€Ÿ
 					BStarTreeNode<K, E>*_last = tv->last;
 					auto it = --_last->key.end();
-					K k = updateAncestorIndex(_last->key[0], tv->key[0], *it, tv);//¸üĞÂ×æÏÈË÷Òı
+					K k = updateAncestorIndex(_last->key[0], tv->key[0], *it, tv);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 					tv->key.insert(tv->key.begin(), k);
 					_last->key.erase(it);
 					tv->child.insert(tv->child.begin(), *--_last->child.end());
 					_last->child.erase(--_last->child.end());
-					//ÏòÏÂÁª½Ó
+					//å‘ä¸‹è”æ¥
 					tv->child[0]->parent = static_cast<BAddTreeNode<K, E>*>(tv);
 					return;
 				}
-				if (tv->next && tv->next->key.size() > _verge) {//ÓÒ¿É½è
+				if (tv->next && tv->next->key.size() > _verge) {//å³å¯å€Ÿ
 					BStarTreeNode<K, E>*_next = tv->next;
-					K k = updateAncestorIndex(tv->key[0], _next->key[0], _next->key[0], _next);//¸üĞÂ×æÏÈË÷Òı
+					K k = updateAncestorIndex(tv->key[0], _next->key[0], _next->key[0], _next);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 					tv->key.insert(tv->key.end(), k);
 					_next->key.erase(_next->key.begin());
 					tv->child.insert(tv->child.end(), *_next->child.begin());
 					_next->child.erase(_next->child.begin());
-					//ÏòÏÂÁª½Ó
+					//å‘ä¸‹è”æ¥
 					tv->child[tv->child.size() - 1]->parent = static_cast<BAddTreeNode<K, E>*>(tv);
 					return;
 				}
-				if (!tv->last) {//×óĞÖµÜ²»´æÔÚ ÓÒĞÖµÜ²»¿É½è
+				if (!tv->last) {//å·¦å…„å¼Ÿä¸å­˜åœ¨ å³å…„å¼Ÿä¸å¯å€Ÿ
 					BStarTreeNode<K, E>*_next = tv->next;
-					if (tv->next->next) {//´æÔÚÓÒĞÖµÜµÄÓÒĞÖµÜ ÔòÎÊÌâÓÒÒÆ
-						K k = updateAncestorIndex(tv->key[0], _next->key[0], _next->key[0], _next);//¸üĞÂ×æÏÈË÷Òı
+					if (tv->next->next) {//å­˜åœ¨å³å…„å¼Ÿçš„å³å…„å¼Ÿ åˆ™é—®é¢˜å³ç§»
+						K k = updateAncestorIndex(tv->key[0], _next->key[0], _next->key[0], _next);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						tv->key.insert(tv->key.end(), k);
 						_next->key.erase(_next->key.begin());
 						tv->child.insert(tv->child.end(), *_next->child.begin());
 						_next->child.erase(_next->child.begin());
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						tv->child[tv->child.size() - 1]->parent = static_cast<BAddTreeNode<K, E>*>(tv);
-						v = (BAddTreeLeafNode<K, E>*)_next;//ÎÊÌâÓÒÒÆ
-						continue;//ÏÂÒç´«²¥
+						v = (BAddTreeLeafNode<K, E>*)_next;//é—®é¢˜å³ç§»
+						continue;//ä¸‹æº¢ä¼ æ’­
 					}
-					else {//Ö»ÓĞ2¸öĞÖµÜ ¸¸½Úµã¼´Îª¸ù ÔòºÏ²¢ÎªÒ»¸ö¸ù½Úµã
+					else {//åªæœ‰2ä¸ªå…„å¼Ÿ çˆ¶èŠ‚ç‚¹å³ä¸ºæ ¹ åˆ™åˆå¹¶ä¸ºä¸€ä¸ªæ ¹èŠ‚ç‚¹
 						BStarTreeNode<K, E>*_r = this->m_root;
-						_next->key.insert(_next->key.begin(), _r->key[0]);//ÏÂÀ­¸ù½ÚµãË÷Òı
+						_next->key.insert(_next->key.begin(), _r->key[0]);//ä¸‹æ‹‰æ ¹èŠ‚ç‚¹ç´¢å¼•
 						delete _r;
 						_next->key.insert(_next->key.begin(), tv->key.begin(), tv->key.end());
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						{
 							int _s = tv->child.size();
 							for (int i = 0; i < _s; ++i)
 								tv->child[i]->parent = static_cast<BAddTreeNode<K, E>*>(_next);
 						}
 						_next->child.insert(_next->child.begin(), tv->child.begin(), tv->child.end());
-						this->m_root = _next;//ĞÂ¸ùÈ·ÈÏ
-						this->m_root->parent = nullptr;//¸üĞÂ¸ùĞÔÖÊ
+						this->m_root = _next;//æ–°æ ¹ç¡®è®¤
+						this->m_root->parent = nullptr;//æ›´æ–°æ ¹æ€§è´¨
 						_next->last = nullptr; _next->next = nullptr;
 						delete tv, tv = nullptr;
 						return;
 					}
 				}
-				if (!tv->next) {//ÓÒĞÖµÜ²»´æÔÚ ×óĞÖµÜ²»¿É½è 
+				if (!tv->next) {//å³å…„å¼Ÿä¸å­˜åœ¨ å·¦å…„å¼Ÿä¸å¯å€Ÿ 
 					BStarTreeNode<K, E>*_last = tv->last;
-					if (tv->last->last) {//´æÔÚ×óĞÖµÜµÄ×óĞÖµÜ ÔòÎÊÌâ×óÒÆ
+					if (tv->last->last) {//å­˜åœ¨å·¦å…„å¼Ÿçš„å·¦å…„å¼Ÿ åˆ™é—®é¢˜å·¦ç§»
 						auto it = --_last->key.end();
-						K k = updateAncestorIndex(_last->key[0], tv->key[0], *it, tv);//¸üĞÂ×æÏÈË÷Òı
+						K k = updateAncestorIndex(_last->key[0], tv->key[0], *it, tv);//æ›´æ–°ç¥–å…ˆç´¢å¼•
 						tv->key.insert(tv->key.begin(), k);
 						_last->key.erase(it);
 						tv->child.insert(tv->child.begin(), *--_last->child.end());
 						_last->child.erase(--_last->child.end());
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						tv->child[0]->parent = static_cast<BAddTreeNode<K, E>*>(tv);
-						v = (BAddTreeLeafNode<K, E>*)_last;//ÎÊÌâ×óÒÆ
-						continue;//ÏÂÒç´«²¥
+						v = (BAddTreeLeafNode<K, E>*)_last;//é—®é¢˜å·¦ç§»
+						continue;//ä¸‹æº¢ä¼ æ’­
 					}
-					else {//Ö»ÓĞ2¸öĞÖµÜ ÔòºÏ²¢ÎªÒ»¸ö¸ù½Úµã
+					else {//åªæœ‰2ä¸ªå…„å¼Ÿ åˆ™åˆå¹¶ä¸ºä¸€ä¸ªæ ¹èŠ‚ç‚¹
 						BStarTreeNode<K, E>*_r = this->m_root;
 						_last->key.insert(_last->key.end(), _r->key[0]);
 						delete _r;
 						_last->key.insert(_last->key.end(), tv->key.begin(), tv->key.end());
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						{
 							int _s = tv->child.size();
 							for (int i = 0; i < _s; ++i)
 								tv->child[i]->parent = static_cast<BAddTreeNode<K, E>*>(_last);
 						}
 						_last->child.insert(_last->child.end(), tv->child.begin(), tv->child.end());
-						this->m_root = (BStarTreeNode<K, E>*)_last;//ĞÂ¸ùÈ·ÈÏ
-						this->m_root->parent = nullptr;//¸üĞÂ¸ùĞÔÖÊ
+						this->m_root = (BStarTreeNode<K, E>*)_last;//æ–°æ ¹ç¡®è®¤
+						this->m_root->parent = nullptr;//æ›´æ–°æ ¹æ€§è´¨
 						delete tv, tv = nullptr;
 						return;
 					}
 				}
-				//×óÓÒĞÖµÜ¶¼²»¿É½è£¬Ôò°Ñv·Ö½âµ½×óÓÒĞÖµÜºÏ²¢Îª2¸öĞÖµÜ ÕâÀïÏÈÏò×óºÏ²¢
+				//å·¦å³å…„å¼Ÿéƒ½ä¸å¯å€Ÿï¼Œåˆ™æŠŠvåˆ†è§£åˆ°å·¦å³å…„å¼Ÿåˆå¹¶ä¸º2ä¸ªå…„å¼Ÿ è¿™é‡Œå…ˆå‘å·¦åˆå¹¶
 				{
-					//Íù×óºÏ²¢
+					//å¾€å·¦åˆå¹¶
 					{
-						int _mc = tv->key.size() - (tv->key.size()) / 2;//Íù×óÒÆµÄ¸öÊı
+						int _mc = tv->key.size() - (tv->key.size()) / 2;//å¾€å·¦ç§»çš„ä¸ªæ•°
 						BStarTreeNode<K, E>*_last = tv->last;
-						K k = updateAncestorIndex(_last->key[0], tv->key[0], *(tv->key.begin() + _mc - 1), tv);//¸üĞÂ×æÏÈË÷Òı
-						_last->key.insert(_last->key.end(), k);//ÏÂÀ­×æÏÈË÷Òı
+						K k = updateAncestorIndex(_last->key[0], tv->key[0], *(tv->key.begin() + _mc - 1), tv);//æ›´æ–°ç¥–å…ˆç´¢å¼•
+						_last->key.insert(_last->key.end(), k);//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
 						_last->key.insert(_last->key.end(), tv->key.begin(), tv->key.begin() + _mc - 1);
 						tv->key.erase(tv->key.begin(), tv->key.begin() + _mc);
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						{
 							auto it = tv->child.begin();
 							auto ite = tv->child.begin() + _mc;
@@ -719,23 +719,23 @@ namespace BST {
 						_last->child.insert(_last->child.end(), tv->child.begin(), tv->child.begin() + _mc);
 						tv->child.erase(tv->child.begin(), tv->child.begin() + _mc);
 					}
-					//ÍùÓÒºÏ²¢
+					//å¾€å³åˆå¹¶
 					{
 						BStarTreeNode<K, E>*_next = tv->next;
-						//Ê×ÏÈÏÈÕÒ³öÒªËæ×ÅvÉ¾³ı¶øÉ¾³ıµÄ¸¸½ÚµãÖĞ¶ÔÓ¦Ë÷ÒıÀ´Ìæ»»µôvºÍÓÒĞÖµÜµÚÒ»¸ö¹²Í¬×æÏÈµÄ¶ÔÓ¦Ë÷Òı
+						//é¦–å…ˆå…ˆæ‰¾å‡ºè¦éšç€våˆ é™¤è€Œåˆ é™¤çš„çˆ¶èŠ‚ç‚¹ä¸­å¯¹åº”ç´¢å¼•æ¥æ›¿æ¢æ‰vå’Œå³å…„å¼Ÿç¬¬ä¸€ä¸ªå…±åŒç¥–å…ˆçš„å¯¹åº”ç´¢å¼•
 						int rank = 0; while (tv->parent->child[rank] != static_cast<BAddTreeNode<K, E>*>(tv))++rank;
 						K k;
 						if (rank == 0) {
-							k = updateAncestorIndex(tv->key[0], _next->key[0], *tv->parent->key.begin(), _next);//»ñÈ¡×æ¸¸Ë÷Òı
+							k = updateAncestorIndex(tv->key[0], _next->key[0], *tv->parent->key.begin(), _next);//è·å–ç¥–çˆ¶ç´¢å¼•
 							tv->parent->key.erase(tv->parent->key.begin());
 						}
 						else {
-							k = updateAncestorIndex(tv->key[0], _next->key[0], *(tv->parent->key.begin() + rank - 1), _next);//»ñÈ¡×æ¸¸Ë÷Òı
+							k = updateAncestorIndex(tv->key[0], _next->key[0], *(tv->parent->key.begin() + rank - 1), _next);//è·å–ç¥–çˆ¶ç´¢å¼•
 							tv->parent->key.erase(tv->parent->key.begin() + rank - 1);
 						}
-						_next->key.insert(_next->key.begin(), k);//ÏÂÀ­×æÏÈË÷Òı
+						_next->key.insert(_next->key.begin(), k);//ä¸‹æ‹‰ç¥–å…ˆç´¢å¼•
 						_next->key.insert(_next->key.begin(), tv->key.begin(), tv->key.end());
-						//ÏòÏÂÁª½Ó
+						//å‘ä¸‹è”æ¥
 						{
 							auto it = tv->child.begin();
 							auto ite = tv->child.end();
@@ -747,13 +747,13 @@ namespace BST {
 						}
 						_next->child.insert(_next->child.begin(), tv->child.begin(), tv->child.end());
 						tv->parent->child.erase(tv->parent->child.begin() + rank);
-						tv->last->next = tv->next; tv->next->last = tv->last;//Î¬»¤Á´±í
+						tv->last->next = tv->next; tv->next->last = tv->last;//ç»´æŠ¤é“¾è¡¨
 						delete tv, tv = nullptr;
-						//ÓÉÓÚÉè¼ÆÎÊÌâ 2±ßÎª2/3µÄË÷Òı×î´ó¸öÊı£¬ÖĞ¼ä¸öÊıÎª2/3Ë÷Òı×î´ó¸öÊı-1£¬Ë÷ÒıÈç´ËºÏ²¢£¬ÓÒ·ÖÖ§·¢ÉúÉÏÒç£¬ÔòĞèÒª×öÉÏÒçµ÷Õû
+						//ç”±äºè®¾è®¡é—®é¢˜ 2è¾¹ä¸º2/3çš„ç´¢å¼•æœ€å¤§ä¸ªæ•°ï¼Œä¸­é—´ä¸ªæ•°ä¸º2/3ç´¢å¼•æœ€å¤§ä¸ªæ•°-1ï¼Œç´¢å¼•å¦‚æ­¤åˆå¹¶ï¼Œå³åˆ†æ”¯å‘ç”Ÿä¸Šæº¢ï¼Œåˆ™éœ€è¦åšä¸Šæº¢è°ƒæ•´
 						v = (BAddTreeLeafNode<K, E>*)_next;
-						solveOverFlow(v);//ÉÏÒç´¦Àí
+						solveOverFlow(v);//ä¸Šæº¢å¤„ç†
 						v = (BAddTreeLeafNode<K, E>*)(p);
-						continue;//ÏÂÒç´«²¥
+						continue;//ä¸‹æº¢ä¼ æ’­
 					}
 					return;
 				}
@@ -770,7 +770,7 @@ namespace BST {
 				for (int i = 0; i < _s; ++i) {
 					K k = p->key[i];
 					if (_min < k&&k <= _max) {
-						p->key[i] = _v;//¸üĞÂË÷Òı;
+						p->key[i] = _v;//æ›´æ–°ç´¢å¼•;
 						return k;
 					}
 				}
