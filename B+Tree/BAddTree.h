@@ -297,7 +297,6 @@ namespace BAT {
 					BAddTreeLeafNode<K, E>*_left = static_cast<BAddTreeLeafNode<K, E>*>(p->child[rank - 1]);//左兄弟
 					if (_left->child.size() > sep) {
 						v->child.insert(v->child.begin(), _left->child[_left->child.size() - 1]);//借一个分支
-						if (v->child[0])v->child[0]->parent = v;//向上联接
 						_left->child.erase(_left->child.end() - 1);//删除
 						{
 							auto it = --_left->key.end();
@@ -318,7 +317,6 @@ namespace BAT {
 					BAddTreeLeafNode<K, E>*_right = static_cast<BAddTreeLeafNode<K, E>*>(p->child[rank+1]);//右兄弟
 					if (_right->child.size() > sep) {
 						v->child.insert(v->child.end(), _right->child[0]);//借一个分支
-						if (v->child[v->child.size() - 1])v->child[v->child.size() - 1]->parent = v;//向上联接
 						_right->child.erase(_right->child.begin());//删除
 						{
 							auto it =_right->key.begin()+1;
